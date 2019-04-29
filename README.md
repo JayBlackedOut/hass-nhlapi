@@ -2,8 +2,9 @@
 NHL Stats API Integration Into Home Assistant
 ## Objectives
 * Consume undocumented NHL Stats API locally with the least amount of resources possible.
-* Pass information to Home Assistant as sensor data (ex. Next game scheduled, live scores or recent scores, goal description, etc.)
+* Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores or recent scores, goal description, etc.)
 * Create a "goal" event platform to use as a trigger for automations.
+* Display the information in the front-end in its own Lovelace card.
 ## Resources
 [Drew Hynes' Unofficial Documentation](https://gitlab.com/dword4/nhlapi)
 
