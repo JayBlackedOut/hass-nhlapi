@@ -1,4 +1,4 @@
-# hass-nhlapi
+# Home Assistant NHL API
 NHL Stats API Integration Into Home Assistant
 ## Objectives
 * Consume undocumented NHL Stats API locally with the least amount of resources possible.
