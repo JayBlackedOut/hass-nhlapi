@@ -22,6 +22,7 @@ If applicable, add screenshots to help explain your problem.
 **Home Assistant Information**
  - Installation Method [e.g. venv, docker, HassIO]:
  - Version:
+ - Running on [e.g. raspberry pi, Intel NUC, Synology]
 
 **Configuration**
 Add the relevent `configuration.yaml` entry.
