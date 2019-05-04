@@ -28,6 +28,6 @@
 | Tampa Bay Lightning   | 14      |
 | Toronto Maple Leafs   | 10      |
 | Vancouver Canucks     | 23      |
-| Vegas Golden Kights   | 54      |
+| Vegas Golden Knights  | 54      |
 | Washington Capitals   | 15      |
 | Winnipeg Jets         | 52      |
