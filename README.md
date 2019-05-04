@@ -7,7 +7,7 @@ NHL Stats API Integration Into Home Assistant
 ```
 sensor:
   - platform: nhl_api
-    team_id: $id # <-- replace $id with the Team ID found in step 2.
+    team_id: $id <-- replace $id with the Team ID found in step 2.
 ```
 ## Configuration
 | key      | required | type    | usage                                                                                                                               |
