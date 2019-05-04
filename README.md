@@ -1,9 +1,9 @@
 # Home Assistant NHL API
 NHL Stats API Integration Into Home Assistant
 ## Installation
-1. Copy the 'nhl_api' folder to the 'custom_components' folder in your Home Assistant configuration directory.
+1. Copy the `nhl_api` folder to the `custom_components` folder in your Home Assistant configuration directory.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
-3. Add the following code in your configuration.yaml file:
+3. Add the following code in your `configuration.yaml` file:
 ```
 sensor:
   - platform: nhl_api
