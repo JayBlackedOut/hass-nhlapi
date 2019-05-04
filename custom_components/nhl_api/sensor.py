@@ -88,7 +88,7 @@ class NHLSensor(Entity):
             if totalItems == 1:
                 """Retrieve latest game state."""
                 games = data['dates'][0]['games']
-                self._state = games[0]['status']['abstractGameState']
+                self._state = games[0]['status']['detailedState']
                 self._state_attributes['away_id'] = \
                     games[0]['teams']['away']['team']['id']
                 self._state_attributes['home_id'] = \
@@ -110,4 +110,4 @@ class NHLSensor(Entity):
                     self._state_attributes['description'] = "No goals scored"
                     self._state_attributes['goal_tracked_team'] = False
             else:
-                self._state = "No game scheduled"
+                self._state = "No Game Scheduled"
