@@ -25,7 +25,7 @@ CONF_NAME = 'name'
 
 DEFAULT_NAME = 'NHL Sensor'
 
-API_URL = 'https://statsapi.web.nhl.com/api/v1/schedule'\
+API_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?'\
     'hydrate=scoringplays&teamId={}'
 
 SCAN_INTERVAL = timedelta(seconds=10)
