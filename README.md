@@ -16,6 +16,17 @@ sensor:
 | team_id  | true     | integer | Identifies the team to be tracked by the sensor. See [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md). |
 | name     | false    | string  | Friendly name of the sensor. If not defined, defaults to: 'NHL Sensor'.                                                             |
 ## Exposed Information
+The sensor will expose the status of the tracked team's scheduled game for the day. The state can be:
+
+| state                  | description                                                         |
+|------------------------|---------------------------------------------------------------------|
+| No Game Scheduled      | No game scheduled for the tracked team today.                       |
+| Scheduled              | A game is scheduled for the tracked team today but is not yet live. |
+| Pre-Game               | The scheduled game is currently in pre-game coverage.               |
+| In Progess             | The scheduled game is live.                                         |
+| In Progress - Critical | The scheduled game is in overtime.                                  |
+| Final                  | The scheduled game is over.                                         |
+
 If a game is scheduled, the sensor will return the following state attributes:
 
 | attribute         | type    | usage                                                                                                                                                                                     |
