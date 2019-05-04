@@ -17,7 +17,7 @@ sensor:
 | name     | false    | string  | Friendly name of the sensor. If not defined, defaults to: 'NHL Sensor'.                                                             |
 ## Objectives Checklist
 * ~Consume undocumented NHL Stats API locally with the least amount of resources possible.~ (v.0.0.1)
-* Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores or recent scores, ~goal description~, etc.)
+* Pass information to Home Assistant as sensor data. (ex. Next game scheduled, ~live scores~ or recent scores, ~goal description~, etc.)
 * Create a "goal" event platform to use as a trigger for automations.
 * Display the information in the front-end in its own Lovelace card.
 ## Resources
