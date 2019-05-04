@@ -15,9 +15,9 @@ sensor:
 | platform | true     | string  | `nhl_api`                                                                                                                           |
 | team_id  | true     | integer | Identifies the team to be tracked by the sensor. See [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md). |
 | name     | false    | string  | Friendly name of the sensor. If not defined, defaults to: 'NHL Sensor'.                                                             |
-## Objectives
-* Consume undocumented NHL Stats API locally with the least amount of resources possible.
-* Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores or recent scores, goal description, etc.)
+## Objectives Checklist
+* ~Consume undocumented NHL Stats API locally with the least amount of resources possible.~ (v.0.0.1)
+* Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores or recent scores, ~goal description~, etc.)
 * Create a "goal" event platform to use as a trigger for automations.
 * Display the information in the front-end in its own Lovelace card.
 ## Resources
