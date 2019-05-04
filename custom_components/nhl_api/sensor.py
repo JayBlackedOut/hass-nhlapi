@@ -91,7 +91,7 @@ class NHLSensor(Entity):
                 self._state = games[0]['status']['abstractGameState']
                 scoringPlays = \
                     games[0]['scoringPlays']
-                if len(scoringPlays) > 1:
+                if len(scoringPlays) > 0:
                     self._state_attributes['description'] = \
                         scoringPlays[-1]['result']['description']
                     if scoringPlays[-1]['team']['id'] == self._team_id:
