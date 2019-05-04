@@ -51,7 +51,7 @@ class NHLSensor(Entity):
 
     def __init__(self, team_id, name):
         """Initialize NHL API sensor."""
-        self._state = ''
+        self._state = API_URL
         self._team_id = team_id
         self._name = name
         self._icon = 'mdi:hockey-sticks'
@@ -89,9 +89,17 @@ class NHLSensor(Entity):
                 """Retrieve latest game state."""
                 games = data['dates'][0]['games']
                 self._state = games[0]['status']['abstractGameState']
+                self._state_attributes['away_id'] = \
+                    games[0]['teams']['away']['team']['id']
+                self._state_attributes['home_id'] = \
+                    games[0]['teams']['home']['team']['id']
+                self._state_attributes['away_score'] = \
+                    games[0]['teams']['away']['score']
+                self._state_attributes['home_score'] = \
+                    games[0]['teams']['home']['score']
                 scoringPlays = \
                     games[0]['scoringPlays']
-                if len(scoringPlays) > 0:
+                if len(scoringPlays) > 1:
                     self._state_attributes['description'] = \
                         scoringPlays[-1]['result']['description']
                     if scoringPlays[-1]['team']['id'] == self._team_id:
