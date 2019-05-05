@@ -18,7 +18,7 @@ from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -93,6 +93,10 @@ class NHLSensor(Entity):
                     games[0]['teams']['away']['team']['id']
                 self._state_attributes['home_id'] = \
                     games[0]['teams']['home']['team']['id']
+                self._state_attributes['away_name'] = \
+                    games[0]['teams']['away']['team']['name']
+                self._state_attributes['home_name'] = \
+                    games[0]['teams']['home']['team']['name']
                 self._state_attributes['away_score'] = \
                     games[0]['teams']['away']['score']
                 self._state_attributes['home_score'] = \
