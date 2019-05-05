@@ -18,7 +18,7 @@ from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -99,7 +99,7 @@ class NHLSensor(Entity):
                     games[0]['teams']['home']['score']
                 scoringPlays = \
                     games[0]['scoringPlays']
-                if len(scoringPlays) > 1:
+                if len(scoringPlays) > 0:
                     self._state_attributes['description'] = \
                         scoringPlays[-1]['result']['description']
                     if scoringPlays[-1]['team']['id'] == self._team_id:
