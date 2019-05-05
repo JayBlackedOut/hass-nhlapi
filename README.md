@@ -24,8 +24,9 @@ The sensor will expose the status of the tracked team's scheduled game for the d
 | Scheduled              | A game is scheduled for the tracked team today but is not yet live. |
 | Pre-Game               | The scheduled game is currently in pre-game coverage.               |
 | In Progess             | The scheduled game is live.                                         |
-| In Progress - Critical | The scheduled game is in overtime.                                  |
-| Final                  | The scheduled game is over.                                         |
+| In Progress - Critical | The scheduled game is within 5 minutes of the 3rd period's end.     |
+| Game Over              | The scheduled game has recently ended.                              |
+| Final                  | The scheduled game is over and the score is final.                  |
 
 If a game is scheduled, the sensor will return the following state attributes:
 
