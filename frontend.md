@@ -4,6 +4,7 @@ The goal is to eventually have a custom lovelace card to display the sensor's in
 
 # Configuration
 `configuration.yaml`
+
 Change `sensor.nhl_sensor` to your sensor's `device_id`:
 ```
 sensor:
@@ -22,6 +23,7 @@ sensor:
 ```
   
 `ui-lovelace.yaml`
+
 Change `sensor.nhl_sensor` to your sensor's `device_id`:
 ```
 type: entities
