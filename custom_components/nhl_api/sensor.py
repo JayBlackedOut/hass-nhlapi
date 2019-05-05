@@ -18,7 +18,7 @@ from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.0.3'
+__version__ = '0.1.0'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -27,6 +27,9 @@ DEFAULT_NAME = 'NHL Sensor'
 
 API_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?'\
     'hydrate=scoringplays&teamId={}'
+
+LOGO_URL = 'https://www-league.nhlstatic.com/images/logos/'\
+    'teams-current-circle/{}.svg'
 
 SCAN_INTERVAL = timedelta(seconds=10)
 
@@ -93,6 +96,10 @@ class NHLSensor(Entity):
                     games[0]['teams']['away']['team']['id']
                 self._state_attributes['home_id'] = \
                     games[0]['teams']['home']['team']['id']
+                self._state_attributes['away_logo'] = \
+                    LOGO_URL.format(self._state_attributes['away_id'])
+                self._state_attributes['home_logo'] = \
+                    LOGO_URL.format(self._state_attributes['home_id'])
                 self._state_attributes['away_name'] = \
                     games[0]['teams']['away']['team']['name']
                 self._state_attributes['home_name'] = \
