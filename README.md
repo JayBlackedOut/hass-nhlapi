@@ -22,7 +22,7 @@ The sensor will expose the status of the tracked team's scheduled game for the d
 |------------------------|---------------------------------------------------------------------|
 | No Game Scheduled      | No game scheduled for the tracked team today.*                      |
 | Scheduled              | A game is scheduled for the tracked team today but is not yet live. |
-| Pre-Game               | The scheduled game is currently in pre-game coverage.               |
+| Pre-Game               | The scheduled game is with 30 minutes of its scheduled start.       |
 | In Progess             | The scheduled game is live.                                         |
 | In Progress - Critical | The scheduled game is within 5 minutes of the 3rd period's end.     |
 | Game Over              | The scheduled game has recently ended.                              |
@@ -38,6 +38,8 @@ If a game is scheduled, the sensor will return the following state attributes:
 | home_id           | integer | Identifies the home team by team id as found in [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md).                                                            |
 | away_name         | string  | The name of the away team.                                                                                                                                                                |
 | home_name         | string  | The name of the home team.                                                                                                                                                                |
+| away_logo         | string  | The url to the away team's logo.                                                                                                                                                          |
+| home_logo         | string  | The url to the home team's logo.                                                                                                                                                          |
 | away_score        | integer | The number of goals scored by the away team.                                                                                                                                              |
 | home_score        | integer | The number of goals scored by the home team.                                                                                                                                              |
 | description       | string  | Description of the last goal scored in the format "GoalScorer (Season/PlayoffTotal) TypeOfShot, assists: AssistingPlayer1 (Season/PlayoffTotal), AssistingPlayer2 (Season/PlayoffTotal)". |
