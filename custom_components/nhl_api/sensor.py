@@ -29,7 +29,7 @@ API_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?'\
     'hydrate=scoringplays&teamId={}'
 
 LOGO_URL = 'https://www-league.nhlstatic.com/images/logos/'\
-    'teams-current-circle/{}.svg'
+    'teams-current-primary-light/{}.svg'
 
 SCAN_INTERVAL = timedelta(seconds=10)
 
