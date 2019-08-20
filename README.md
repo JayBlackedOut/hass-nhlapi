@@ -7,7 +7,7 @@ NHL Stats API Integration Into Home Assistant
 ```
 sensor:
   - platform: nhl_api
-    team_id: $id <-- replace $id with the Team ID found in step 2.
+    team_id:   # insert the Team ID found in step 2.
 ```
 ## Configuration
 | key      | required | type    | usage                                                                                                                               |
@@ -49,7 +49,7 @@ If a game is scheduled, the sensor will return the following state attributes:
 - [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, ~live scores or recent scores~, ~goal description~, etc.)
 - [ ] Create a "goal" event platform to use as a trigger for automations.
 - [ ] Display the information in the front-end in its own Lovelace card.
-- [ ] Add support for `custom_updater`.
+- [x] Add support for `HACS`.
 ## Resources
 [The Undocumented NHL Stats API](https://statsapi.web.nhl.com/api/v1/schedule)
 
