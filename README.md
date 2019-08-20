@@ -1,3 +1,4 @@
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 # Home Assistant NHL API
 NHL Stats API Integration Into Home Assistant
 ## Installation: Manual
