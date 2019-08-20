@@ -86,9 +86,9 @@ class NHLSensor(Entity):
         response = requests.get(url)
         if response.status_code == requests.codes.ok:
             data = response.json()
-            totalItems = data['totalItems']
+            total_items = data['totalItems']
             """Check if a game is scheduled."""
-            if totalItems == 1:
+            if total_items == 1:
                 """Retrieve latest game state."""
                 games = data['dates'][0]['games']
                 self._state = games[0]['status']['detailedState']
@@ -108,12 +108,12 @@ class NHLSensor(Entity):
                     games[0]['teams']['away']['score']
                 self._state_attributes['home_score'] = \
                     games[0]['teams']['home']['score']
-                scoringPlays = \
+                scoring_plays = \
                     games[0]['scoringPlays']
-                if len(scoringPlays) > 0:
+                if len(scoring_plays) > 0:
                     self._state_attributes['description'] = \
-                        scoringPlays[-1]['result']['description']
-                    if scoringPlays[-1]['team']['id'] == self._team_id:
+                        scoring_plays[-1]['result']['description']
+                    if scoring_plays[-1]['team']['id'] == self._team_id:
                         self._state_attributes['goal_tracked_team'] = True
                     else:
                         self._state_attributes['goal_tracked_team'] = False
