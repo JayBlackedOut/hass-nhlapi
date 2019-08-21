@@ -18,7 +18,7 @@ from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -116,7 +116,7 @@ class NHLSensor(Entity):
                     else:
                         self._state_attributes['goal_tracked_team'] = False  # If false, set attribute 'goal_tracked_team' to False.
                 else:
-                    self._state_attributes['description'] = "No goals scored"  # If no goals scored yet, set attribute 'descripption' to say so.
+                    self._state_attributes['description'] = "No goals scored"  # If no goals scored yet, set attribute 'description' to say so.
                     self._state_attributes['goal_tracked_team'] = False
             else:
                 self._state = "No Game Scheduled"  # Set sensor state to say that no games are scheduled for the day (updates at 12pm EST)
