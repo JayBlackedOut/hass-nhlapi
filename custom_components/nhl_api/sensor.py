@@ -54,8 +54,8 @@ class NHLSensor(Entity):
 
     def __init__(self, team_id, name):
         """Initialize NHL API sensor."""
-        self._state = API_URL
-        self._team_id = team_id
+        self._state = None
+        self.team_id = team_id
         self._name = name
         self._icon = 'mdi:hockey-sticks'
         self._state_attributes = {}
@@ -82,41 +82,61 @@ class NHLSensor(Entity):
 
     def update(self):
         """Get the latest data from the NHL API."""
-        url = API_URL.format(self._team_id)
+        url = API_URL.format(self.team_id)
         response = requests.get(url)
         if response.status_code == requests.codes.ok:
             data = response.json()
-            total_items = data['totalItems']  # Check if a game is scheduled. Sensor attributes are only created if a game is scheduled.
+            # Check if a game is scheduled.
+            # Sensor attributes are only created if a game is scheduled.
+            total_items = data['totalItems']
             if total_items == 1:
+                # Set sensor state to game state.
                 games = data['dates'][0]['games']
-                self._state = games[0]['status']['detailedState']  # Set sensor state to game state.
+                self._state = games[0]['status']['detailedState']
+                # Set away team id as attribute 'away_id'.
                 self._state_attributes['away_id'] = \
-                    games[0]['teams']['away']['team']['id']  # Set away team id as attribute 'away_id'.
+                    games[0]['teams']['away']['team']['id']
+                # Set home team id as attribute 'home_id'.
                 self._state_attributes['home_id'] = \
-                    games[0]['teams']['home']['team']['id']  # Set home team id as attribute 'home_id'.
+                    games[0]['teams']['home']['team']['id']
+                # Set away team logo url as attribute 'away_logo'.
                 self._state_attributes['away_logo'] = \
-                    LOGO_URL.format(self._state_attributes['away_id'])  # Set away team logo url as attribute 'away_logo'.
+                    LOGO_URL.format(self._state_attributes['away_id'])
+                # Set home team logo url as attribute 'home_logo'.
                 self._state_attributes['home_logo'] = \
-                    LOGO_URL.format(self._state_attributes['home_id'])  # Set home team logo url as attribute 'home_logo'.
+                    LOGO_URL.format(self._state_attributes['home_id'])
+                # Set away team name as attribute 'away_name'.
                 self._state_attributes['away_name'] = \
-                    games[0]['teams']['away']['team']['name']  # Set away team name as attribute 'away_name'.
+                    games[0]['teams']['away']['team']['name']
+                # Set home team name as attribute 'home_team'.
                 self._state_attributes['home_name'] = \
-                    games[0]['teams']['home']['team']['name']  # Set home team name as attribute 'home_team'.
+                    games[0]['teams']['home']['team']['name']
+                # Set away team score as attribute 'away_score'.
                 self._state_attributes['away_score'] = \
-                    games[0]['teams']['away']['score']  # Set away team score as attribute 'away_score'.
+                    games[0]['teams']['away']['score']
+                # Set home team score as attribute 'home_score'.
                 self._state_attributes['home_score'] = \
-                    games[0]['teams']['home']['score']  # Set home team score as attribute 'home_score'.
+                    games[0]['teams']['home']['score']
                 scoring_plays = \
                     games[0]['scoringPlays']
-                if len(scoring_plays) > 0:  # Check if any goals have been scored.
+                # Check if any goals have been scored.
+                if len(scoring_plays) > 0:
+                    # Set last goal's description as attribute 'description'.
                     self._state_attributes['description'] = \
-                        scoring_plays[-1]['result']['description']  # Set last goal's description as attribute 'description'.
-                    if scoring_plays[-1]['team']['id'] == self._team_id:  # Check if team who score is the tracked team.
-                        self._state_attributes['goal_tracked_team'] = True  # If true, set attribute 'goal_tracked_team' to True.
+                        scoring_plays[-1]['result']['description']
+                    # Check if team who score is the tracked team.
+                    if scoring_plays[-1]['team']['id'] == self._team_id:
+                        # If true, set attribute 'goal_tracked_team' to True.
+                        self._state_attributes['goal_tracked_team'] = True
                     else:
-                        self._state_attributes['goal_tracked_team'] = False  # If false, set attribute 'goal_tracked_team' to False.
+                        # If false, set attribute 'goal_tracked_team' to False.
+                        self._state_attributes['goal_tracked_team'] = False
                 else:
-                    self._state_attributes['description'] = "No goals scored"  # If no goals scored yet, set attribute 'description' to say so.
+                    # If no goals scored yet,
+                    # set attribute 'description' to say so.
+                    self._state_attributes['description'] = "No goals scored"
                     self._state_attributes['goal_tracked_team'] = False
             else:
-                self._state = "No Game Scheduled"  # Set sensor state to say that no games are scheduled for the day (updates at 12pm EST)
+                # Set sensor state to say that no games are scheduled
+                # for the day (updates at 12pm EST)
+                self._state = "No Game Scheduled"
