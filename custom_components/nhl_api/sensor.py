@@ -125,17 +125,13 @@ class NHLSensor(Entity):
                     self._state_attributes['description'] = \
                         scoring_plays[-1]['result']['description']
                     # Check if team who score is the tracked team.
-                    if scoring_plays[-1]['team']['id'] == self._team_id:
-                        # If true, set attribute 'goal_tracked_team' to True.
-                        self._state_attributes['goal_tracked_team'] = True
-                    else:
-                        # If false, set attribute 'goal_tracked_team' to False.
-                        self._state_attributes['goal_tracked_team'] = False
+                    if scoring_plays[-1]['team']['id'] == self.team_id:
+                        # If true, fire the custom event 'goal'.
+                        hass.bus.fire('goal')
                 else:
                     # If no goals scored yet,
                     # set attribute 'description' to say so.
                     self._state_attributes['description'] = "No goals scored"
-                    self._state_attributes['goal_tracked_team'] = False
             else:
                 # Set sensor state to say that no games are scheduled
                 # for the day (updates at 12pm EST)
