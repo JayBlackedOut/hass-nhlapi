@@ -18,7 +18,7 @@ from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
