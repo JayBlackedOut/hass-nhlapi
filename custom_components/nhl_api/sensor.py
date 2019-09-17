@@ -125,7 +125,7 @@ class NHLSensor(Entity):
                     self._state_attributes['description'] = \
                         scoring_plays[-1]['result']['description']
                     # Check if team who score is the tracked team.
-                    if scoring_plays[-1]['team']['id'] == self._team_id:
+                    if scoring_plays[-1]['team']['id'] == self.team_id:
                         # If true, set attribute 'goal_tracked_team' to True.
                         self._state_attributes['goal_tracked_team'] = True
                     else:
