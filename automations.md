@@ -41,7 +41,7 @@ Set the score tracking input numbers to 0 prior to the start of the game:
       value: 0
 ```
 
-Announce that the away team has scored over text-to-speech. For example, if the Pittsburgh Penguing are the away team and they score, the tts would say "Pittsburgh Penguins score!":
+Announce that the away team has scored over text-to-speech. For example, if the Pittsburgh Penguins are the away team and they score, the tts would say "Pittsburgh Penguins score!":
 
 ```
 - id: away_scores
