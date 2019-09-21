@@ -55,6 +55,10 @@ If a game is scheduled, the sensor will return the following state attributes:
 | home_score        | integer | The number of goals scored by the home team.                                                                                                                                              |
 | description       | string  | Description of the last goal scored in the format "GoalScorer (Season/PlayoffTotal) TypeOfShot, assists: AssistingPlayer1 (Season/PlayoffTotal), AssistingPlayer2 (Season/PlayoffTotal)". |
 | goal_tracked_team | boolean | Returns `true` if last goal was scored by the team being tracked. Otherwise, returns `false`. Can be useful for goal alerts.                                                              |
+## Examples
+Display info in the front end: [frontend.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md)  
+Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md)
+
 ## Objectives Checklist
 - [x] Consume undocumented NHL Stats API locally with the least amount of resources possible. (v.0.0.1)
 - [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, ~live scores or recent scores~, ~goal description~, etc.)
