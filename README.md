@@ -4,7 +4,7 @@ NHL Stats API Integration Into Home Assistant
 ## Installation: Manual
 1. Copy the `nhl_api` folder to the `custom_components` folder in your Home Assistant configuration directory.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
-3. Add the following code in your `configuration.yaml` file:
+3. Add the following minimum code in your `configuration.yaml` file. See Configuration for more advanced options:
 ```
 sensor:
   - platform: nhl_api
@@ -14,7 +14,7 @@ sensor:
 This method assumes you have HACS already installed.
 1. In the HACS Store, search for `NHL` and find the `NHL API` integration and install it.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
-3. Add the following code in your `configuration.yaml` file:
+3. Add the following code in your `configuration.yaml` file. See Configuration for more advanced options:
 ```
 sensor:
   - platform: nhl_api
@@ -26,6 +26,9 @@ sensor:
 | platform | true     | string  | `nhl_api`                                                                                                                           |
 | team_id  | true     | integer | Identifies the team to be tracked by the sensor. See [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md). |
 | name     | false    | string  | Friendly name of the sensor. If not defined, defaults to: 'NHL Sensor'.                                                             |
+| scan_interval | false    | integer  | Number of seconds until the sensor updates its state. If not defined, defaults to 10 seconds.                                                             |
+Warning! Setting your `scan_interval` to a low number leads to more writes to your disk. It is recommended to not set the scan interval to less than 10 if running Home Assistant on a Raspberry Pi. Also, each time the sensor updates (i.e. at each scan interval), anywhere from ~300B to ~25KB of data is consumed. Keep this in mind if you have a low internet data cap.
+
 ## Exposed Information
 The sensor will expose the status of the tracked team's scheduled game for the day. The state can be:
 

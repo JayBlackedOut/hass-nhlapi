@@ -12,13 +12,13 @@ import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (
-    CONF_NAME, CONF_ID)
+    CONF_NAME, CONF_ID, CONF_SCAN_INTERVAL)
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.1.2'
+__version__ = '0.2.2'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -42,22 +42,21 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the NHL API sensor."""
     team_id = config.get(CONF_ID)
-    if config.get(CONF_NAME) is None:
-        name = DEFAULT_NAME
-    else:
-        name = config.get(CONF_NAME)
-    add_entities([NHLSensor(team_id, name)], True)
+    name = config.get(CONF_NAME, DEFAULT_NAME)
+    scan_interval = config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL)
+    add_entities([NHLSensor(team_id, name, scan_interval)], True)
 
 
 class NHLSensor(Entity):
     """Representation of a NHL API sensor."""
 
-    def __init__(self, team_id, name):
+    def __init__(self, team_id, name, scan_interval):
         """Initialize NHL API sensor."""
         self._state = None
         self.team_id = team_id
         self._name = name
         self._icon = 'mdi:hockey-sticks'
+        self._scan_interval = scan_interval
         self._state_attributes = {}
 
     @property
