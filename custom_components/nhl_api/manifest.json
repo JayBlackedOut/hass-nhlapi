@@ -4,5 +4,5 @@
   "documentation": "https://github.com/JayBlackedOut/hass-nhlapi",
   "dependencies": [],
   "codeowners": ["@jayblackedout"],
-  "requirements": []
+  "requirements": ["pynhl==0.1.6"]
 }
