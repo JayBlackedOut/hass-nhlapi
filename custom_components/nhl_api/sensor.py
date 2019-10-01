@@ -4,7 +4,8 @@ Support for the undocumented NHL API.
 For more details about this platform, please refer to the documentation at
 https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 """
-# TODO: use f-strings instead of str.format
+# TODO: Add suppport for events
+# TODO: Convert attribute 'next_game_time' from UTC to local
 import logging
 from datetime import timedelta
 from pynhl import Schedule, Scoring
