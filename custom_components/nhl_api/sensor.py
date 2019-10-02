@@ -7,7 +7,7 @@ https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 # TODO: Add suppport for events
 # TODO: Convert attribute 'next_game_time' from UTC to local
 import logging
-from datetime import timedelta
+from datetime import timedelta, datetime as dt
 from pynhl import Schedule, Scoring
 import requests
 import voluptuous as vol
@@ -15,11 +15,12 @@ import voluptuous as vol
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (CONF_NAME, CONF_ID, CONF_SCAN_INTERVAL)
 import homeassistant.helpers.config_validation as cv
+import homeassistant.util.dt as dt_util
 from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -85,11 +86,28 @@ class NHLSensor(Entity):
             plays = Scoring(self.team_id).scoring_info()
         else:
             plays = {}
-        all_attr = {**games, **plays, **dates}
+        # Localize the UTC time values.
+        dttm = dt.strptime(dates['next_game_datetime'], '%Y-%m-%dT%H:%M:%SZ')
+        dttm_local = dt_util.as_local(dttm)
+        time = {'next_game_time': dttm_local.strftime('%-I:%M%p')}
+        # If next game is scheduled Today or Tomorrow,
+        # return "Today" or "Tomorrow". Else, return
+        # the actual date of the next game.
+        default_date = dttm_local.strftime('%B %-d, %Y')
+        now = dt_util.as_local(dt.now())
+        pick = {
+            now.strftime("%Y-%m-%d"): "Today",
+            (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow"
+        }
+        date = {'next_game_date': pick.get(dttm_local.strftime("%Y-%m-%d"),
+                                           default_date)}
+        # Merge all attributes to a single dict.
+        all_attr = {**games, **plays, **time, **date}
         # Set sensor state to game state.
-        # Display next game date if none today.
-        self._state = plays.get('game_state', all_attr.get('next_game_date'))
-        # Set sensor state attributes
+        # Display next game date and time if none today.
+        next_date_time = date['next_game_date'] + " " + time['next_game_time']
+        self._state = (plays.get('game_state', next_date_time))
+        # Set sensor state attributes.
         self._state_attributes = all_attr
         # Set away team logo url as attribute 'away_logo'.
         self._state_attributes['away_logo'] = \
