@@ -4,8 +4,7 @@ Support for the undocumented NHL API.
 For more details about this platform, please refer to the documentation at
 https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 """
-# TODO: Add suppport for events
-# TODO: Convert attribute 'next_game_time' from UTC to local
+
 import logging
 from datetime import timedelta, datetime as dt
 from pynhl import Schedule, Scoring
@@ -89,23 +88,26 @@ class NHLSensor(Entity):
         # Localize the UTC time values.
         dttm = dt.strptime(dates['next_game_datetime'], '%Y-%m-%dT%H:%M:%SZ')
         dttm_local = dt_util.as_local(dttm)
-        time = {'next_game_time': dttm_local.strftime('%-I:%M%p')}
+        time = {'game_time': dttm_local.strftime('%-I:%M%p')}
         # If next game is scheduled Today or Tomorrow,
         # return "Today" or "Tomorrow". Else, return
         # the actual date of the next game.
-        default_date = dttm_local.strftime('%B %-d, %Y')
+        next_game_date = dttm_local.strftime('%B %-d, %Y')
         now = dt_util.as_local(dt.now())
         pick = {
-            now.strftime("%Y-%m-%d"): "Today",
-            (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow"
+            now.strftime("%Y-%m-%d"): "Today,",
+            (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow,"
         }
-        date = {'next_game_date': pick.get(dttm_local.strftime("%Y-%m-%d"),
-                                           default_date)}
+        date = {
+            'game_date': pick.get(dttm_local.strftime("%Y-%m-%d"),
+                                  next_game_date),
+            'next_game_date': next_game_date
+        }
         # Merge all attributes to a single dict.
         all_attr = {**games, **plays, **time, **date}
         # Set sensor state to game state.
         # Display next game date and time if none today.
-        next_date_time = date['next_game_date'] + " " + time['next_game_time']
+        next_date_time = date['game_date'] + " " + time['game_time']
         self._state = (plays.get('game_state', next_date_time))
         # Set sensor state attributes.
         self._state_attributes = all_attr
