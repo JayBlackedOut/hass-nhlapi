@@ -75,7 +75,7 @@ Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlap
 
 ## Objectives Checklist
 - [x] Consume undocumented NHL Stats API locally with the least amount of resources possible. (v.0.0.1)
-- [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, ~live scores or recent scores~, ~goal description~, etc.)
+- [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores, goal description, etc.)
 - [ ] Create a "goal" event platform to use as a trigger for automations.
 - [ ] Display the information in the front-end in its own Lovelace card.
 - [x] Add support for `HACS`.
