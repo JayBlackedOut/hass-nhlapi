@@ -35,8 +35,7 @@ The sensor will expose the status of the tracked team's scheduled game for the d
 
 | state                  | description                                                                               |
 |------------------------|-------------------------------------------------------------------------------------------|
-| Next Game Date & Time  | No game scheduled for the tracked team today. Will return date and time of the next game. |
-| Scheduled              | A game is scheduled for the tracked team today but is not yet live.                       |
+| Next Game Date & Time  | The next game is not yet close to starting. Will return date and time of the next game.  |
 | Pre-Game               | The scheduled game is with 30 minutes of its scheduled start.                             |
 | In Progess             | The scheduled game is live.                                                               |
 | In Progress - Critical | The scheduled game is within 5 minutes of the 3rd period's end.                           |
