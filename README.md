@@ -33,32 +33,43 @@ Warning! Setting your `scan_interval` to a low number leads to more writes to yo
 ## Exposed Information
 The sensor will expose the status of the tracked team's scheduled game for the day. The state can be:
 
-| state                  | description                                                         |
-|------------------------|---------------------------------------------------------------------|
-| No Game Scheduled      | No game scheduled for the tracked team today.*                      |
-| Scheduled              | A game is scheduled for the tracked team today but is not yet live. |
-| Pre-Game               | The scheduled game is with 30 minutes of its scheduled start.       |
-| In Progess             | The scheduled game is live.                                         |
-| In Progress - Critical | The scheduled game is within 5 minutes of the 3rd period's end.     |
-| Game Over              | The scheduled game has recently ended.                              |
-| Final                  | The scheduled game is over and the score is final.                  |
+| state                  | description                                                                               |
+|------------------------|-------------------------------------------------------------------------------------------|
+| Next Game Date & Time  | No game scheduled for the tracked team today. Will return date and time of the next game. |
+| Scheduled              | A game is scheduled for the tracked team today but is not yet live.                       |
+| Pre-Game               | The scheduled game is with 30 minutes of its scheduled start.                             |
+| In Progess             | The scheduled game is live.                                                               |
+| In Progress - Critical | The scheduled game is within 5 minutes of the 3rd period's end.                           |
+| Game Over              | The scheduled game has recently ended.                                                    |
+| Final                  | The scheduled game is over and the score is final.                                        |
 
-\* Since the NHL API updates the day's scheduled games at around noon EST, "No Game Scheduled" may appear prior to that time even though a game is scheduled. The sensor should update to the correct state at around noon EST.
-
-If a game is scheduled, the sensor will return the following state attributes:
+The sensor will return the following state attributes whether or not a game is in progress:
 
 | attribute         | type    | usage                                                                                                                                                                                     |
-|-------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| away_id           | integer | Identifies the away team by team id as found in [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md).                                                            |
-| home_id           | integer | Identifies the home team by team id as found in [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md).                                                            |
+|-------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| away_id           | integer | Identifies the away team by team id as found in [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md).                                                         |
+| home_id           | integer | Identifies the home team by team id as found in [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md).                                                         |
 | away_name         | string  | The name of the away team.                                                                                                                                                                |
 | home_name         | string  | The name of the home team.                                                                                                                                                                |
 | away_logo         | string  | The url to the away team's logo.                                                                                                                                                          |
 | home_logo         | string  | The url to the home team's logo.                                                                                                                                                          |
-| away_score        | integer | The number of goals scored by the away team.                                                                                                                                              |
-| home_score        | integer | The number of goals scored by the home team.                                                                                                                                              |
-| description       | string  | Description of the last goal scored in the format "GoalScorer (Season/PlayoffTotal) TypeOfShot, assists: AssistingPlayer1 (Season/PlayoffTotal), AssistingPlayer2 (Season/PlayoffTotal)". |
-| goal_tracked_team | boolean | Returns `true` if last goal was scored by the team being tracked. Otherwise, returns `false`. Can be useful for goal alerts.                                                              |
+| next_game_date    | string  | The date of the next game.                                                                                                                                                                |
+| next_game_time    | string  | The time of the next game. This will be localized based on your Home Assistant configured timezone.                                                                                  |
+
+The sensor will also return the following state attributes when a game is in progress:
+
+| attribute         | type    | usage                                                             |
+|-------------------|---------|-------------------------------------------------------------------|
+| last_goal         | string  | Description of the last goal scored in the format "GoalScorer (Season/PlayoffTotal) TypeOfShot, assists: AssistingPlayer1 (Season/PlayoffTotal), AssistingPlayer2 (Season/PlayoffTotal)".        |
+| goal_type         | string  | At what strength the goal was scored such as EVEN, PPG, SHG, etc. |
+| shot_type         | string  | The type of goal scoring shot such as Slapshot, Wrist Shot, etc.  |
+| goal_team_id      | integer | The id of the team that scored the last goal.                     |
+| goal_event_id     | integer | The event id of the goal generated by the API.                    |
+| goal_team_name    | string  | The name of the team that scored the last goal.                   |
+| away_score        | integer | The number of goals scored by the away team.                      |
+| home_score        | integer | The number of goals scored by the home team.                      |
+| goal_tracked_team | boolean | Returns `true` if last goal was scored by the team being tracked. Otherwise, returns `false`. Can be useful for goal alerts.                                                                    |
+
 ## Examples
 Display info in the front end: [frontend.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md)  
 Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md)
