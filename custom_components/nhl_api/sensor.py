@@ -8,7 +8,6 @@ https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 import logging
 from datetime import timedelta, datetime as dt
 from pynhl import Schedule, Scoring
-import requests
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
