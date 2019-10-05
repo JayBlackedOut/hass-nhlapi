@@ -109,7 +109,10 @@ class NHLSensor(Entity):
         # Set sensor state to game state.
         # Display next game date and time if none today.
         next_date_time = date['game_date'] + " " + time['game_time']
-        self._state = (plays.get('game_state', next_date_time))
+        if plays.get('game_state') == "Scheduled":
+            self._state = next_date_time
+        else:
+            self.state = plays.get('game_state', next_date_time)
         # Set sensor state attributes.
         self._state_attributes = all_attr
         # Set away team logo url as attribute 'away_logo'.
