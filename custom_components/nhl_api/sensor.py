@@ -5,6 +5,8 @@ For more details about this platform, please refer to the documentation at
 https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 """
 
+from . import goal_event_handler
+
 import logging
 from datetime import timedelta, datetime as dt
 from pynhl import Schedule, Scoring
@@ -19,7 +21,7 @@ from homeassistant.helpers.entity import Entity
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.4.0'
+__version__ = '0.5.0'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -122,3 +124,5 @@ class NHLSensor(Entity):
             self._state_attributes['goal_tracked_team'] = True
         else:
             self._state_attributes['goal_tracked_team'] = False
+        # Fire the goal event handler.
+        goal_event_handler
