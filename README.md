@@ -73,6 +73,7 @@ Display info in the front end: [frontend.md](https://github.com/JayBlackedOut/ha
 Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md)
 
 ## Objectives Checklist
+<<<<<<< HEAD
 - [x] Consume undocumented NHL Stats API locally with the least amount of resources possible.
 - [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores, goal description, etc.)
 - [x] Create a "goal" event platform to use as a trigger for automations.
