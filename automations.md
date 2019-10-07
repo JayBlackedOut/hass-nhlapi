@@ -1,4 +1,27 @@
-# Automation Examples
+# Automation Examples (Version 0.5.0 and After)
+As of Version 0.5.0, every time a goal is scored during a tracked game (i.e. a game being played by a tracked team), the `nhl_goal` event will fire with the scoring team's ID as event data. This makes it incredibly easy to use goals to trigger automations. No extra template_sensors or input_numbers have to be set-up. Only the minimum configuration has to exist in `configuration.yaml`.
+
+## Configuration
+
+`automations.yaml`
+
+The automation below will announce a Montreal Canadiens goal on the living room speaker with text-to-speech. Remember to wrap the team_id value in double-quotes or the automation will not fire.
+
+```
+- alias: 'Montreal Goal Announcement'
+  trigger:
+    platform: event
+    event_type: nhl_goal
+    event_data:
+      team_id: "8"
+  action:
+    service: tts.google_translate_say
+    entity_id: media_player.living_room_speaker
+    data:
+      message: 'The habs scored!'
+```
+
+# Automation Examples (All Versions)
 All credit goes to @Jazz#7670 on Discord for the automations below. All these automations assume you have set up the template sensors as shown in [frontend.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md) and are using the default name for the sensor, `sensor.nhl_sensor`. Adjust as necessary.
 
 ## Configuration
