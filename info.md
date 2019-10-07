@@ -1,3 +1,6 @@
+## Information:
+Track the score of your favorite NHL team and create automations based on your team scoring!
+
 ## Usage:
 Add to configuration.yaml:
 
