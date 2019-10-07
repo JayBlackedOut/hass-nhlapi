@@ -64,9 +64,9 @@ Display info in the front end: [frontend.md](https://github.com/JayBlackedOut/ha
 Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md)
 
 ## Objectives Checklist
-- [x] Consume undocumented NHL Stats API locally with the least amount of resources possible. (v.0.0.1)
-- [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, ~live scores or recent scores~, ~goal description~, etc.)
-- [ ] Create a "goal" event platform to use as a trigger for automations.
+- [x] Consume undocumented NHL Stats API locally with the least amount of resources possible.
+- [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores or recent scores, goal description, etc.)
+- [x] Create a "goal" event platform to use as a trigger for automations.
 - [ ] Display the information in the front-end in its own Lovelace card.
 - [x] Add support for `HACS`.
 ## Resources
