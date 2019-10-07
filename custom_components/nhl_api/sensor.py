@@ -28,7 +28,7 @@ DEFAULT_NAME = 'NHL Sensor'
 LOGO_URL = 'https://www-league.nhlstatic.com/images/logos/'\
     'teams-current-primary-light/{}.svg'
 
-SCAN_INTERVAL = timedelta(seconds=10)
+SCAN_INTERVAL = timedelta(seconds=5)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_ID, default=0): cv.positive_int,
