@@ -5,8 +5,6 @@ For more details about this platform, please refer to the documentation at
 https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 """
 
-from . import goal_event_handler
-
 import logging
 from datetime import timedelta, datetime as dt
 from pynhl import Schedule, Scoring
@@ -112,7 +110,7 @@ class NHLSensor(Entity):
         if plays.get('game_state') == "Scheduled":
             self._state = next_date_time
         else:
-            self.state = plays.get('game_state', next_date_time)
+            self._state = plays.get('game_state', next_date_time)
         # Set sensor state attributes.
         self._state_attributes = all_attr
         # Set away team logo url as attribute 'away_logo'.
@@ -127,4 +125,31 @@ class NHLSensor(Entity):
         else:
             self._state_attributes['goal_tracked_team'] = False
         # Fire the goal event handler.
-        goal_event_handler
+        goal_team_id = self._state_attributes.get('goal_team_id', None)
+        goal_event_id = self._state_attributes.get('goal_event_id', None)
+        goal_event_handler(goal_team_id, goal_event_id, self.hass)
+        # Clear the event list at game end.
+        if self._state == "Game Over":
+            event_list(0, True)
+
+
+def event_list(event_id=0, clear=False, lst=[]):
+    lst.append(event_id)
+    lst = list(set(lst))
+    if clear:
+        lst.clear()
+    return lst
+
+
+def goal_event_handler(goal_team_id, goal_event_id, hass):
+    """Handle firing of the goal event."""
+    team_id = str(goal_team_id)
+    event_id = str(goal_event_id)
+    # If the event hasn't yet been fired for this goal, fire it.
+    # Else, add the event to the list anyway, in case the list is new.
+    if event_list() != [0] and \
+            event_id not in event_list():
+        hass.bus.fire('nhl_goal', {"team_id": team_id})
+        event_list(event_id)
+    else:
+        event_list(event_id)
