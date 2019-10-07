@@ -9,7 +9,7 @@ sensor:
   - platform: nhl_api
     team_id: [TEAM ID OF TRACKED TEAM - REFER TO DOCS]
     name: [(Optional) FRIENDLY NAME OF SENSOR - DEFAULT: NHL Sensor]
-    scan_interval [(Optional) SCAN INTERVAL IN SECONDS - DEFAULT: 10]
+    scan_interval [(Optional) SCAN INTERVAL IN SECONDS - DEFAULT: 5]
 ```
 ## Documentation:
 Please refer to the [documentation](https://github.com/JayBlackedOut/hass-nhlapi/) in the repository.
