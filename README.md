@@ -4,22 +4,26 @@ NHL Stats API Integration Into Home Assistant
 ## Installation: Manual
 1. Copy the `nhl_api` folder to the `custom_components` folder in your Home Assistant configuration directory.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
-3. Add the following minimum code in your `configuration.yaml` file. See Configuration for more advanced options:
+3. Restart Home Assistant to allow the required packages to be installed.
+4. Add the following minimum code in your `configuration.yaml` file. See Configuration for more advanced options:
 ```
 sensor:
   - platform: nhl_api
     team_id: [TEAM ID FOUND IN STEP 2].
 ```
+5. Restart Home Assistant one final time.
 ## Installation: HACS
 This method assumes you have HACS already installed.
 1. In the HACS Store, search for `NHL` and find the `NHL API` integration and install it.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
-3. Add the following code in your `configuration.yaml` file. See Configuration for more advanced options:
+3. Restart Home Assistant to allow the required packages to be installed.
+4. Add the following code in your `configuration.yaml` file. See Configuration for more advanced options:
 ```
 sensor:
   - platform: nhl_api
     team_id: [TEAM ID FOUND IN STEP 2].
 ```
+5. Restart Home Assistant one final time.
 ## Configuration
 | key      | required | type    | usage                                                                                                                               |
 |----------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------|
@@ -66,7 +70,7 @@ The sensor will also return the following state attributes when a game is in pro
 | goal_team_name    | string  | The name of the team that scored the last goal.                   |
 | away_score        | integer | The number of goals scored by the away team.                      |
 | home_score        | integer | The number of goals scored by the home team.                      |
-| goal_tracked_team | boolean | Returns `true` if last goal was scored by the team being tracked. Otherwise, returns `false`. Can be useful for goal alerts.                                                                    |
+| goal_tracked_team | boolean | Returns `true` if the last goal was scored by the team being tracked. Otherwise, returns `false`. Can be useful for goal alerts.                                                                    |
 
 ## Examples
 Display info in the front end: [frontend.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md)  
