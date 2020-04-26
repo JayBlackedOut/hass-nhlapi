@@ -103,6 +103,7 @@ class NHLSensor(Entity):
             time ={
                 'next_game_time': ''
             }
+            game_date = ''
             next_game_date = ''
         # Merge all attributes to a single dict.
         all_attr = {**games, **plays, **time, 'next_game_date': next_game_date}
