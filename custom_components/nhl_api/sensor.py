@@ -85,19 +85,25 @@ class NHLSensor(Entity):
         else:
             plays = {}
         # Localize the UTC time values.
-        dttm = dt.strptime(dates['next_game_datetime'], '%Y-%m-%dT%H:%M:%SZ')
-        dttm_local = dt_util.as_local(dttm)
-        time = {'next_game_time': dttm_local.strftime('%-I:%M%p')}
-        # If next game is scheduled Today or Tomorrow,
-        # return "Today" or "Tomorrow". Else, return
-        # the actual date of the next game.
-        next_game_date = dttm_local.strftime('%B %-d, %Y')
-        now = dt_util.as_local(dt.now())
-        pick = {
-            now.strftime("%Y-%m-%d"): "Today,",
-            (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow,"
-        }
-        game_date = pick.get(dttm_local.strftime("%Y-%m-%d"), next_game_date)
+        if dates['next_game_datetime'] != "None":
+            dttm = dt.strptime(dates['next_game_datetime'], '%Y-%m-%dT%H:%M:%SZ')
+            dttm_local = dt_util.as_local(dttm)
+            time = {'next_game_time': dttm_local.strftime('%-I:%M%p')}
+            # If next game is scheduled Today or Tomorrow,
+            # return "Today" or "Tomorrow". Else, return
+            # the actual date of the next game.
+            next_game_date = dttm_local.strftime('%B %-d, %Y')
+            now = dt_util.as_local(dt.now())
+            pick = {
+                now.strftime("%Y-%m-%d"): "Today,",
+                (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow,"
+            }
+            game_date = pick.get(dttm_local.strftime("%Y-%m-%d"), next_game_date)
+        else:
+            time ={
+                'next_game_time': ''
+            }
+            next_game_date = ''
         # Merge all attributes to a single dict.
         all_attr = {**games, **plays, **time, 'next_game_date': next_game_date}
         # Set sensor state to game state.
