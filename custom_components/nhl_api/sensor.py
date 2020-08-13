@@ -98,7 +98,8 @@ class NHLSensor(Entity):
                 now.strftime("%Y-%m-%d"): "Today,",
                 (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow,"
             }
-            game_date = pick.get(dttm_local.strftime("%Y-%m-%d"), next_game_date)
+            game_date = pick.get(dttm_local.strftime("%Y-%m-%d"),
+                                 next_game_date)
         else:
             time ={
                 'next_game_time': ''
