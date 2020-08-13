@@ -102,7 +102,7 @@ class NHLSensor(Entity):
             game_date = pick.get(dttm_local.strftime("%Y-%m-%d"),
                                  next_game_date)
         else:
-            time ={
+            time = {
                 'next_game_time': ''
             }
             game_date = ''
