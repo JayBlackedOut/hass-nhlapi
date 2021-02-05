@@ -28,7 +28,7 @@ DEFAULT_NAME = 'NHL Sensor'
 LOGO_URL = 'https://www-league.nhlstatic.com/images/logos/'\
     'teams-current-primary-light/{}.svg'
 
-SCAN_INTERVAL = timedelta(seconds=60)
+DEFAULT_SCAN_INTERVAL = timedelta(seconds=60)
 PREGAME_SCAN_INTERVAL = timedelta(seconds=10)
 LIVE_SCAN_INTERVAL = timedelta(seconds=1)
 POSTGAME_SCAN_INTERVAL = timedelta(seconds=600)
@@ -43,7 +43,10 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the NHL API sensor."""
     team_id = config.get(CONF_ID)
     name = config.get(CONF_NAME, DEFAULT_NAME)
-    scan_interval = max(config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL), SCAN_INTERVAL)
+    scan_interval = max(config.get(CONF_SCAN_INTERVAL), DEFAULT_SCAN_INTERVAL)
+    _LOGGER.debug("Setup Platform Config Scan Interval: %s",config.get(CONF_SCAN_INTERVAL))
+    _LOGGER.debug("Setup Platform Default Scan Interval: %s",DEFAULT_SCAN_INTERVAL)
+    _LOGGER.debug("Setup Platform Scan Interval: %s",scan_interval)
     add_entities([NHLSensor(team_id, name, scan_interval)], True)
 
 
@@ -52,6 +55,7 @@ class NHLSensor(Entity):
 
     def __init__(self, team_id, name, scan_interval):
         """Initialize NHL API sensor."""
+        _LOGGER.debug("Initialise Sensor")
         self._state = None
         self._team_id = team_id
         self._name = name
@@ -59,12 +63,8 @@ class NHLSensor(Entity):
         self._scan_interval = scan_interval
         self._last_scan = None
         self._state_attributes = {}
-
-    @property
-    def should_poll(self):
-        """No polling needed."""
-        return False
-
+        _LOGGER.debug("Scan interval: %s", self._scan_interval)
+      
     @property
     def name(self):
         """Return the name of the sensor."""
@@ -87,6 +87,7 @@ class NHLSensor(Entity):
 
     def get_game_data(self):
         """Get the latest data from the NHL API via pynhl."""
+        _LOGGER.debug("Get the latest data from the NHL API via pynhl.")
         games = Schedule(self._team_id).game_info()
         dates = Schedule(self._team_id).datetime_info()
         if Scoring(self._team_id).scoring_info() is not None:
@@ -123,6 +124,7 @@ class NHLSensor(Entity):
 
     def set_state(self):
         """Set sensor state to game state and set polling interval."""
+        _LOGGER.debug("Set sensor state to game state and set polling interval.")
         all_attr = self.get_game_data()[0]
         next_date_time = self.get_game_data()[1]
         if all_attr.get('game_state') == "Scheduled":
@@ -153,32 +155,53 @@ class NHLSensor(Entity):
         return self._state
         
     def set_polling(self):
+        _LOGGER.debug("Set Polling")
         game_state = self.set_state()
         polling_delta = self._scan_interval
+        _LOGGER.debug("Game State: %s", game_state)
         if game_state == "Pre-Game":
             polling_delta = PREGAME_SCAN_INTERVAL
+            _LOGGER.debug("Polling Delta: %s", polling_delta)
         elif game_state == "In Progress":
             polling_delta = LIVE_SCAN_INTERVAL
+            _LOGGER.debug("Polling Delta: %s", polling_delta)
         elif game_state == "In Progress - Critical":
             polling_delta = LIVE_SCAN_INTERVAL
+            _LOGGER.debug("Polling Delta: %s", polling_delta)
         elif game_state == "Game Over":
             polling_delta = POSTGAME_SCAN_INTERVAL
+            _LOGGER.debug("Polling Delta: %s", polling_delta)
         elif game_state == "Final":
             polling_delta = POSTGAME_SCAN_INTERVAL
+            _LOGGER.debug("Polling Delta: %s", polling_delta)
         else:
-            polling_delta = self._scan_interval
+            _LOGGER.debug("Else Statement")
+            _LOGGER.debug("Scan Interval: %s", self._scan_interval)
+            polling_delta = self._scan_interval     
+            _LOGGER.debug("Polling Delta: %s", polling_delta)       
         return polling_delta
 
     def update(self):
         """Update the sensor."""
+        _LOGGER.debug("Update the sensor.")
         now = dt.today()
         polling_delta = self.set_polling()
+        _LOGGER.debug("Time now: %s", now)
+        _LOGGER.debug("Last scan: %s", self._last_scan)
         if self._last_scan == None:
-            self.schedule_update_ha_state(True)
+            self.schedule_update_ha_state()
             self._last_scan = dt.today()
+            _LOGGER.debug("Last scan updated: %s", self._last_scan)
+            next_update = self._last_scan + polling_delta
+            _LOGGER.debug("Next Update: %s", next_update)
         elif now - self._last_scan > polling_delta:
-            self.schedule_update_ha_state(True)
+            last_update_diff = now - self._last_scan
+            _LOGGER.debug("Time since last scan seconds: %s", last_update_diff)
+            self.schedule_update_ha_state()
             self._last_scan = dt.today()
+            _LOGGER.debug("Last scan updated: %s", self._last_scan)
+            next_update = self._last_scan + polling_delta
+            _LOGGER.debug("Next Update: %s", next_update)
 
 def event_list(event_id=0, clear=False, lst=[]):
     """Keep a list of goal event IDs returned by the API."""
