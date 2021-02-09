@@ -28,7 +28,7 @@ DEFAULT_NAME = 'NHL Sensor'
 LOGO_URL = 'https://www-league.nhlstatic.com/images/logos/'\
     'teams-current-primary-light/{}.svg'
 
-DEFAULT_SCAN_INTERVAL = timedelta(seconds=60)
+MIN_SCAN_INTERVAL = timedelta(seconds=1)
 PREGAME_SCAN_INTERVAL = timedelta(seconds=10)
 LIVE_SCAN_INTERVAL = timedelta(seconds=1)
 POSTGAME_SCAN_INTERVAL = timedelta(seconds=600)
@@ -43,9 +43,9 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the NHL API sensor."""
     team_id = config.get(CONF_ID)
     name = config.get(CONF_NAME, DEFAULT_NAME)
-    scan_interval = max(config.get(CONF_SCAN_INTERVAL), DEFAULT_SCAN_INTERVAL)
+    scan_interval = MIN_SCAN_INTERVAL
     _LOGGER.debug("Setup Platform Config Scan Interval: %s",config.get(CONF_SCAN_INTERVAL))
-    _LOGGER.debug("Setup Platform Default Scan Interval: %s",DEFAULT_SCAN_INTERVAL)
+    _LOGGER.debug("Setup Platform Min Scan Interval: %s",MIN_SCAN_INTERVAL)
     _LOGGER.debug("Setup Platform Scan Interval: %s",scan_interval)
     add_entities([NHLSensor(team_id, name, scan_interval)], True)
 
