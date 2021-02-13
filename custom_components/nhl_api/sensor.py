@@ -23,6 +23,7 @@ __version__ = '0.6.0dev'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
+CONF_SCAN_INTERVAL = 'scan_interval'
 
 DEFAULT_NAME = 'NHL Sensor'
 
@@ -36,6 +37,7 @@ POSTGAME_SCAN_INTERVAL = timedelta(seconds=600)
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_ID, default=0): cv.positive_int,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
+    vol.Optional(CONF_SCAN_INTERVAL): cv.positive_int,
 })
 
 
@@ -43,7 +45,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the NHL API sensor."""
     team_id = config.get(CONF_ID)
     name = config.get(CONF_NAME, DEFAULT_NAME)
-    scan_interval = config.get(CONF_SCAN_INTERVAL, LIVE_SCAN_INTERVAL)
+    scan_interval = config.get(timedelta(seconds=CONF_SCAN_INTERVAL), LIVE_SCAN_INTERVAL)
     add_entities([NHLSensor(team_id, name, scan_interval, hass)])
 
 
