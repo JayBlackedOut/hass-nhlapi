@@ -11,7 +11,7 @@ from pynhl import Schedule, Scoring
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.const import (CONF_NAME, CONF_ID, CONF_SCAN_INTERVAL)
+from homeassistant.const import CONF_NAME, CONF_ID, CONF_SCAN_INTERVAL
 import homeassistant.helpers.config_validation as cv
 import homeassistant.util.dt as dt_util
 from homeassistant.helpers.entity import Entity
@@ -19,26 +19,30 @@ from homeassistant.helpers.event import track_point_in_time
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.6.0dev'
+__version__ = "0.6.0dev"
 
-CONF_ID = 'team_id'
-CONF_NAME = 'name'
-CONF_SCAN_INTERVAL = 'scan_interval'
+CONF_ID = "team_id"
+CONF_NAME = "name"
+CONF_SCAN_INTERVAL = "scan_interval"
 
-DEFAULT_NAME = 'NHL Sensor'
+DEFAULT_NAME = "NHL Sensor"
 
-LOGO_URL = 'https://www-league.nhlstatic.com/images/logos/'\
-    'teams-current-primary-light/{}.svg'
+LOGO_URL = (
+    "https://www-league.nhlstatic.com/images/logos/"
+    "teams-current-primary-light/{}.svg"
+)
 
 PREGAME_SCAN_INTERVAL = timedelta(seconds=10)
 LIVE_SCAN_INTERVAL = timedelta(seconds=1)
 POSTGAME_SCAN_INTERVAL = timedelta(seconds=600)
 
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Required(CONF_ID, default=0): cv.positive_int,
-    vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-    vol.Optional(CONF_SCAN_INTERVAL): cv.positive_int,
-})
+PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
+    {
+        vol.Required(CONF_ID, default=0): cv.positive_int,
+        vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
+        vol.Optional(CONF_SCAN_INTERVAL): cv.positive_int,
+    }
+)
 
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
@@ -60,7 +64,7 @@ class NHLSensor(Entity):
         self._team_id = team_id
         self._name = name
         self._scan_interval = timedelta(seconds=scan_interval)
-        self._icon = 'mdi:hockey-sticks'
+        self._icon = "mdi:hockey-sticks"
         self._last_scan = dt.today()
         self._state_attributes = {}
         self.timer(dt.today())
@@ -106,58 +110,56 @@ class NHLSensor(Entity):
         else:
             plays = {}
         # Localize the returned UTC time values.
-        if dates['next_game_datetime'] != "None":
-            dttm = dt.strptime(dates['next_game_datetime'],
-                               '%Y-%m-%dT%H:%M:%SZ')
+        if dates["next_game_datetime"] != "None":
+            dttm = dt.strptime(dates["next_game_datetime"], "%Y-%m-%dT%H:%M:%SZ")
             dttm_local = dt_util.as_local(dttm)
-            time = {'next_game_time': dttm_local.strftime('%-I:%M %p')}
+            time = {"next_game_time": dttm_local.strftime("%-I:%M %p")}
             # If next game is scheduled Today or Tomorrow,
             # return "Today" or "Tomorrow". Else, return
             # the actual date of the next game.
-            next_game_date = dttm_local.strftime('%B %-d, %Y')
+            next_game_date = dttm_local.strftime("%B %-d, %Y")
             now = dt_util.as_local(dt.now())
             pick = {
                 now.strftime("%Y-%m-%d"): "Today,",
-                (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow,"
+                (now + timedelta(days=1)).strftime("%Y-%m-%d"): "Tomorrow,",
             }
-            game_date = pick.get(dttm_local.strftime("%Y-%m-%d"),
-                                 next_game_date)
+            game_date = pick.get(dttm_local.strftime("%Y-%m-%d"), next_game_date)
         else:
-            time = {
-                'next_game_time': ''
-            }
-            game_date = 'No Game Scheduled'
-            next_game_date = ''
+            time = {"next_game_time": ""}
+            game_date = "No Game Scheduled"
+            next_game_date = ""
         # Merge all attributes to a single dict.
-        all_attr = {**games, **plays, **time, 'next_game_date': next_game_date}
-        next_date_time = game_date + " " + time['next_game_time']
+        all_attr = {**games, **plays, **time, "next_game_date": next_game_date}
+        next_date_time = game_date + " " + time["next_game_time"]
         return all_attr, next_date_time
 
     def set_state(self):
         """Set sensor state to game state and set polling interval."""
         all_attr = self.get_game_data()[0]
         next_date_time = self.get_game_data()[1]
-        if all_attr.get('game_state') == "Scheduled":
+        if all_attr.get("game_state") == "Scheduled":
             # Display next game date and time if none today.
             self._state = next_date_time
         else:
-            self._state = all_attr.get('game_state', next_date_time)
+            self._state = all_attr.get("game_state", next_date_time)
         # Set sensor state attributes.
         self._state_attributes = all_attr
         # Set away team logo url as attribute 'away_logo'.
-        self._state_attributes['away_logo'] = \
-            LOGO_URL.format(self._state_attributes.get('away_id'))
+        self._state_attributes["away_logo"] = LOGO_URL.format(
+            self._state_attributes.get("away_id")
+        )
         # Set home team logo url as attribute 'home_logo'.
-        self._state_attributes['home_logo'] = \
-            LOGO_URL.format(self._state_attributes.get('home_id'))
+        self._state_attributes["home_logo"] = LOGO_URL.format(
+            self._state_attributes.get("home_id")
+        )
         # Set attribute for goal scored by tracked team.
-        if self._state_attributes.get('goal_team_id', None) == self._team_id:
-            self._state_attributes['goal_tracked_team'] = True
+        if self._state_attributes.get("goal_team_id", None) == self._team_id:
+            self._state_attributes["goal_tracked_team"] = True
         else:
-            self._state_attributes['goal_tracked_team'] = False
+            self._state_attributes["goal_tracked_team"] = False
         # Send the event to the goal event handler.
-        goal_team_id = self._state_attributes.get('goal_team_id', None)
-        goal_event_id = self._state_attributes.get('goal_event_id', None)
+        goal_team_id = self._state_attributes.get("goal_team_id", None)
+        goal_event_id = self._state_attributes.get("goal_event_id", None)
         goal_event_handler(goal_team_id, goal_event_id, self.hass)
         # Clear the event list at game end.
         if self._state == "Game Over":
@@ -198,7 +200,7 @@ def goal_event_handler(goal_team_id, goal_event_id, hass):
     # If the event hasn't yet been fired for this goal, fire it.
     # Else, add the event to the list anyway, in case the list is new.
     if event_list() != [0] and event_id not in event_list():
-        hass.bus.fire('nhl_goal', {"team_id": team_id})
+        hass.bus.fire("nhl_goal", {"team_id": team_id})
         event_list(event_id)
     else:
         event_list(event_id)
