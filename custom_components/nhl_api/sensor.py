@@ -45,7 +45,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the NHL API sensor."""
     team_id = config.get(CONF_ID)
     name = config.get(CONF_NAME, DEFAULT_NAME)
-    scan_interval = config.get(timedelta(seconds=CONF_SCAN_INTERVAL), LIVE_SCAN_INTERVAL)
+    scan_interval = config.get(CONF_SCAN_INTERVAL, LIVE_SCAN_INTERVAL)
     add_entities([NHLSensor(team_id, name, scan_interval, hass)])
 
 
@@ -59,7 +59,7 @@ class NHLSensor(Entity):
         self._state = None
         self._team_id = team_id
         self._name = name
-        self._scan_interval = scan_interval
+        self._scan_interval = timedelta(seconds=scan_interval)
         self._icon = 'mdi:hockey-sticks'
         self._last_scan = dt.today()
         self._state_attributes = {}
@@ -173,8 +173,6 @@ class NHLSensor(Entity):
                 polling_delta = self._scan_interval
             else:
                 polling_delta = LIVE_SCAN_INTERVAL
-        elif game_state in ("Game Over", "Final"):
-            polling_delta = POSTGAME_SCAN_INTERVAL
         else:
             polling_delta = POSTGAME_SCAN_INTERVAL
         return polling_delta
