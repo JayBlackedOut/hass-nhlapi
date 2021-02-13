@@ -2,7 +2,7 @@
 # Home Assistant NHL API
 NHL Stats API Integration Into Home Assistant: Bring live score updates into Home Assistant and fire automations when your team scores!
 
-<span style="color:red">*New!*</span> The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live.
+<span style="color:red">*New!*</span> The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live. Credit goes to @mastermc0. 
 ## Installation: Manual
 1. Copy the `nhl_api` folder to the `custom_components` folder in your Home Assistant configuration directory.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
