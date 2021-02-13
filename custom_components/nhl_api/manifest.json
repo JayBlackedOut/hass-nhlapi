@@ -3,6 +3,6 @@
   "name": "NHL API",
   "documentation": "https://github.com/JayBlackedOut/hass-nhlapi",
   "dependencies": [],
-  "codeowners": ["@jayblackedout"],
+  "codeowners": ["@jayblackedout", "@mastermc0"],
   "requirements": ["pynhl==0.1.9"]
 }

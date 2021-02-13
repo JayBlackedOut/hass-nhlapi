@@ -1,6 +1,8 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 # Home Assistant NHL API
-NHL Stats API Integration Into Home Assistant
+NHL Stats API Integration Into Home Assistant: Bring live score updates into Home Assistant and fire automations when your team scores!
+
+<span style="color:red">*New!*</span> The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live.
 ## Installation: Manual
 1. Copy the `nhl_api` folder to the `custom_components` folder in your Home Assistant configuration directory.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
@@ -30,9 +32,9 @@ sensor:
 | platform | true     | string  | `nhl_api`                                                                                                                           |
 | team_id  | true     | integer | Identifies the team to be tracked by the sensor. See [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md). |
 | name     | false    | string  | Friendly name of the sensor. If not defined, defaults to: 'NHL Sensor'.                                                             |
-| scan_interval | false    | integer  | Number of seconds until the sensor updates its state. If not defined, defaults to 5 seconds.                                                             |
+| scan_interval | false    | integer  | Number of seconds until the sensor updates its state when the game is live. If not defined, defaults to 1 second.                                                             |
 
-Warning! Setting your `scan_interval` to a low number leads to more writes to your disk. It is recommended to not set the scan interval to less than 5 if running Home Assistant on a Raspberry Pi. Also, each time the sensor updates (i.e. at each scan interval), anywhere from ~300B to ~25KB of data is consumed. Keep this in mind if you have a low internet data cap.
+<span style="color:red">*Warning!*</span> Setting your `scan_interval` to a low number leads to more writes to your disk. It is recommended to not set the scan interval to less than 5 if running Home Assistant on a Raspberry Pi. Also, each time the sensor updates (i.e. at each scan interval), anywhere from ~300B to ~25KB of data is consumed. Keep this in mind if you have a low internet data cap.
 
 ## Exposed Information
 The sensor will expose the status of the tracked team's scheduled game for the day. The state can be:
