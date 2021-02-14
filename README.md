@@ -73,6 +73,10 @@ The sensor will also return the following state attributes when a game is in pro
 | goal_team_name    | string  | The name of the team that scored the last goal.                   |
 | away_score        | integer | The number of goals scored by the away team.                      |
 | home_score        | integer | The number of goals scored by the home team.                      |
+| away_sog          | integer | The number of shots on goal by the away team.                     |
+| home_sog          | integer | The number of shots on goal by the home team.                     |
+| current_period    | string  | The current period.                                               |
+| time_remaining    | string  | The time remaining in the current period.                         |
 | goal_tracked_team | boolean | Returns `true` if the last goal was scored by the team being tracked. Otherwise, returns `false`. Can be useful for goal alerts.                                                                    |
 
 ## Examples
