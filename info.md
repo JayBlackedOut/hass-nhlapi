@@ -3,6 +3,8 @@
 ## Information:
 Track the score of your favorite NHL team and create automations based on your team scoring!
 
+<span style="color:red">*New!*</span> The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live.
+
 ## Usage:
 Add to configuration.yaml:
 
