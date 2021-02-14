@@ -7,7 +7,7 @@ https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 
 import logging
 from datetime import timedelta, datetime as dt
-from pynhl import Schedule, Scoring
+from pynhl import Schedule, Scoring, Linescore
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -19,7 +19,7 @@ from homeassistant.helpers.event import track_point_in_time
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.6.0'
+__version__ = '0.7.0'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -99,12 +99,20 @@ class NHLSensor(Entity):
 
     def get_game_data(self):
         """Get the latest data from the NHL API via pynhl."""
+        # Get game info
         games = Schedule(self._team_id).game_info()
+        # Get date and time info
         dates = Schedule(self._team_id).datetime_info()
+        # Get scoring info
         if Scoring(self._team_id).scoring_info() is not None:
             plays = Scoring(self._team_id).scoring_info()
         else:
             plays = {}
+        # Get linescore info
+        if Linescore(self._team_id).linescore_info() is not None:
+            linescore = Linescore(self._team_id).linescore_info()
+        else:
+            linescore = {}
         # Localize the returned UTC time values.
         if dates['next_game_datetime'] != "None":
             dttm = dt.strptime(dates['next_game_datetime'],
@@ -128,8 +136,9 @@ class NHLSensor(Entity):
             }
             game_date = 'No Game Scheduled'
             next_game_date = ''
+        next = {'next_game_date': next_game_date}
         # Merge all attributes to a single dict.
-        all_attr = {**games, **plays, **time, 'next_game_date': next_game_date}
+        all_attr = {**linescore, **games, **plays, **time, **next}
         next_date_time = game_date + " " + time['next_game_time']
         return all_attr, next_date_time
 
