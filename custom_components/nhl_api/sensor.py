@@ -19,7 +19,7 @@ from homeassistant.helpers.event import track_point_in_time
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.7.1'
+__version__ = '0.7.2'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -37,7 +37,7 @@ POSTGAME_SCAN_INTERVAL = timedelta(seconds=600)
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_ID, default=0): cv.positive_int,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-    vol.Optional(CONF_SCAN_INTERVAL): cv.positive_int,
+    vol.Optional(CONF_SCAN_INTERVAL): cv.positive_timedelta,
 })
 
 
