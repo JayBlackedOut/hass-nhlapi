@@ -19,7 +19,7 @@ from homeassistant.helpers.event import track_point_in_time
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.7.2'
+__version__ = '0.7.3'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -33,11 +33,14 @@ LOGO_URL = 'https://www-league.nhlstatic.com/images/logos/'\
 PREGAME_SCAN_INTERVAL = timedelta(seconds=10)
 LIVE_SCAN_INTERVAL = timedelta(seconds=1)
 POSTGAME_SCAN_INTERVAL = timedelta(seconds=600)
+DEFAULT_SCAN_INTERVAL = LIVE_SCAN_INTERVAL.seconds
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_ID, default=0): cv.positive_int,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-    vol.Optional(CONF_SCAN_INTERVAL): cv.positive_timedelta,
+    vol.Optional(
+        CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
+    ): cv.time_period,
 })
 
 
@@ -45,7 +48,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the NHL API sensor."""
     team_id = config.get(CONF_ID)
     name = config.get(CONF_NAME, DEFAULT_NAME)
-    scan_interval = config.get(CONF_SCAN_INTERVAL, LIVE_SCAN_INTERVAL.seconds)
+    scan_interval = config.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
     add_entities([NHLSensor(team_id, name, scan_interval, hass)])
 
 
@@ -175,11 +178,11 @@ class NHLSensor(Entity):
 
     def set_polling(self):
         game_state = self._state
-        if game_state in (None, "Pre-Game"):
+        if game_state == "Pre-Game":
             polling_delta = PREGAME_SCAN_INTERVAL
-        elif game_state in ("In Progress", "In Progress - Critical"):
-            if timedelta(seconds=self._scan_interval) > LIVE_SCAN_INTERVAL:
-                polling_delta = timedelta(seconds=self._scan_interval)
+        elif game_state in [None, "In Progress", "In Progress - Critical"]:
+            if self._scan_interval > LIVE_SCAN_INTERVAL:
+                polling_delta = self._scan_interval
             else:
                 polling_delta = LIVE_SCAN_INTERVAL
         else:
