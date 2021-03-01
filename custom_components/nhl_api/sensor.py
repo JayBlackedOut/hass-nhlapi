@@ -1,13 +1,12 @@
 """"
 Support for the undocumented NHL API.
-
 For more details about this platform, please refer to the documentation at
 https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 """
 
 import logging
 from datetime import timedelta, datetime as dt
-from pynhl import Schedule, Scoring, Linescore
+from pynhl import Schedule, Scoring, Linescore, Broadcasts
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -19,7 +18,7 @@ from homeassistant.helpers.event import track_point_in_time
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.7.3'
+__version__ = '0.8.0'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
@@ -116,6 +115,11 @@ class NHLSensor(Entity):
             linescore = Linescore(self._team_id).linescore_info()
         else:
             linescore = {}
+        # Get broadcast info
+        if Broadcasts(self._team_id).broadcast_info() is not None:
+            broadcasts = Broadcasts(self._team_id).broadcast_info()
+        else:
+            broadcasts = {}
         # Localize the returned UTC time values.
         if dates['next_game_datetime'] != "None":
             dttm = dt.strptime(dates['next_game_datetime'],
@@ -141,7 +145,14 @@ class NHLSensor(Entity):
             next_game_date = ''
         next = {'next_game_date': next_game_date}
         # Merge all attributes to a single dict.
-        all_attr = {**linescore, **games, **plays, **time, **next}
+        all_attr = {
+            **broadcasts,
+            **linescore,
+            **games,
+            **plays,
+            **time,
+            **next
+            }
         next_date_time = game_date + " " + time['next_game_time']
         return all_attr, next_date_time
 

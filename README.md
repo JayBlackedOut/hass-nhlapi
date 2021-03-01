@@ -53,6 +53,9 @@ The sensor will return the following state attributes whether or not a game is i
 
 | attribute         | type    | usage                                                                                                                                                                                     |
 |-------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| national_broadcasts           | list | The national broadcast stations.                                                         |
+| away_broadcasts           | list | The away team's broadcast stations.                                                         |
+| home_broadcasts           | list | The home team's broadcast stations.                                                         |
 | away_id           | integer | Identifies the away team by team id as found in [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md).                                                         |
 | home_id           | integer | Identifies the home team by team id as found in [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md).                                                         |
 | away_name         | string  | The name of the away team.                                                                                                                                                                |
