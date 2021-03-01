@@ -1,6 +1,5 @@
 """"
 Support for the undocumented NHL API.
-
 For more details about this platform, please refer to the documentation at
 https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 """
@@ -146,7 +145,14 @@ class NHLSensor(Entity):
             next_game_date = ''
         next = {'next_game_date': next_game_date}
         # Merge all attributes to a single dict.
-        all_attr = {**broadcasts, **linescore, **games, **plays, **time, **next}
+        all_attr = {
+            **broadcasts,
+            **linescore,
+            **games,
+            **plays,
+            **time,
+            **next
+            }
         next_date_time = game_date + " " + time['next_game_time']
         return all_attr, next_date_time
 
