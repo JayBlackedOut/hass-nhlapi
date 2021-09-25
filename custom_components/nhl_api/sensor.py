@@ -181,7 +181,8 @@ class NHLSensor(Entity):
         # Send the event to the goal event handler.
         goal_team_id = self._state_attributes.get('goal_team_id', None)
         goal_event_id = self._state_attributes.get('goal_event_id', None)
-        goal_event_handler(goal_team_id, goal_event_id, self._state_attributes['goal_tracked_team'], self.hass)
+        goal_tracked_team = self._state_attributes.get('goal_tracked_team', None)
+        goal_event_handler(goal_team_id, goal_event_id, goal_tracked_team, self.hass)
         # Clear the event list at game end.
         if self._state == "Game Over":
             event_list(0, True)
