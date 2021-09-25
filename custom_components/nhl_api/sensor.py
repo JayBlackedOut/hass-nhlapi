@@ -181,7 +181,7 @@ class NHLSensor(Entity):
         # Send the event to the goal event handler.
         goal_team_id = self._state_attributes.get('goal_team_id', None)
         goal_event_id = self._state_attributes.get('goal_event_id', None)
-        goal_event_handler(goal_team_id, goal_event_id, self.hass)
+        goal_event_handler(goal_team_id, goal_event_id, self._state_attributes['goal_tracked_team'], self.hass)
         # Clear the event list at game end.
         if self._state == "Game Over":
             event_list(0, True)
@@ -214,14 +214,14 @@ def event_list(event_id=0, clear=False, lst=[]):
     return lst
 
 
-def goal_event_handler(goal_team_id, goal_event_id, hass):
+def goal_event_handler(goal_team_id, goal_event_id, goal_tracked_team, hass):
     """Handle firing of the goal event."""
     team_id = str(goal_team_id)
     event_id = str(goal_event_id)
     # If the event hasn't yet been fired for this goal, fire it.
     # Else, add the event to the list anyway, in case the list is new.
     if event_list() != [0] and event_id not in event_list():
-        hass.bus.fire('nhl_goal', {"team_id": team_id})
+        hass.bus.fire('nhl_goal', {"team_id": team_id, "goal_tracked_team": goal_tracked_team})
         event_list(event_id)
     else:
         event_list(event_id)
