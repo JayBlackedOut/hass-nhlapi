@@ -23,7 +23,7 @@ With the addition of `goal_tracked_team` to the event data, you no longer have t
       message: 'The habs scored!'
 ```
 
-Alternatively, you can still match against the team_id:
+Alternatively, you can still match against the `team_id`:
 
 ```
 - alias: 'Montreal Goal Announcement'
