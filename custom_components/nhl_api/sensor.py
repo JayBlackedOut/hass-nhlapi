@@ -123,7 +123,7 @@ class NHLSensor(Entity):
         # Localize the returned UTC time values.
         if dates['next_game_datetime'] != "None":
             dttm = dt.strptime(dates['next_game_datetime'],
-                               '%Y-%m-%dT%H:%M:%SZ')
+                               '%Y-%m-%dT%H:%M:%S%z')
             dttm_local = dt_util.as_local(dttm)
             time = {'next_game_time': dttm_local.strftime('%-I:%M %p')}
             # If next game is scheduled Today or Tomorrow,
