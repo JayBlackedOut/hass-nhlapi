@@ -7,7 +7,7 @@ As of Version 0.5.0, every time a goal is scored during a tracked game (i.e. a g
 
 The automation below will announce a Montreal Canadiens goal on the living room speaker with text-to-speech. Remember to wrap the team_id value in double-quotes or the automation will not fire.
 
-With the addition of `goal_tracked_team` to the goal_event data, you no longer have to code the goal_tracked team's ID into the trigger.
+With the addition of `goal_tracked_team` to the event data, you no longer have to use your tracked team's ID in the trigger.
 
 ```
 - alias: 'Montreal Goal Announcement'
