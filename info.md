@@ -1,9 +1,11 @@
-**New as of Version 0.5.0!** Trigger your automations with the `nhl_goal` event platform. See the [example automations](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md) for more information.
+<span style="color:red">*Important!*</span> There was a breaking change introduced in Home Assistant 2021.8.X that renders the state of the `away_team` and `home_team` template sensors unknown. Please see the [new instructions](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md) for formatting these sensors for use in the front end.
 
 ## Information:
 Track the score of your favorite NHL team and create automations based on your team scoring!
 
-<span style="color:red">*New!*</span> The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live.
+**New as of Version 0.9.0!** The `nhl_goal` event platform will now also pass if the goal was scored by the tracked team or the other team. See the [example automations](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md) for more information.
+
+
 
 ## Usage:
 Add to configuration.yaml:
