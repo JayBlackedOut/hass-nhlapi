@@ -27,7 +27,7 @@ sensor:
         entity_picture_template: '{{ states.sensor.nhl_sensor.attributes.away_logo }}'
       home_team:
         friendly_name_template: '{{ states.sensor.nhl_sensor.attributes.home_name }}'
-        value_template: '{{ states.sensor.nhl_sensor.attributes.home_score }}'
+        value_template: '{{ states.sensor.nhl_sensor.attributes.get("home_score", "-") }}'
         entity_picture_template: '{{ states.sensor.nhl_sensor.attributes.home_logo }}'
 ```
   
@@ -51,15 +51,15 @@ Change `sensor.nhl_sensor` to your sensor's `device_id`:
 ```
 template:
   - sensor:
-      - unique_id: away_team
-        name: '{{ states.sensor.nhl_sensor.attributes.away_name }}'
-        state: '{{ states.sensor.nhl_sensor.attributes.away_score }}'
-        picture: '{{ states.sensor.nhl_sensor.attributes.away_logo }}'
+    - unique_id: away_team
+      name: '{{ states.sensor.nhl_sensor.attributes.get("away_name", "") }}'
+      state: '{{ states.sensor.nhl_sensor.attributes.get("away_score", "") }}'
+      picture: '{{ states.sensor.nhl_sensor.attributes.get("away_logo", "") }}'
   - sensor:
-      - unique_id: home_team
-        name: '{{ states.sensor.nhl_sensor.attributes.home_name }}'
-        state: '{{ states.sensor.nhl_sensor.attributes.home_score }}'
-        picture: '{{ states.sensor.nhl_sensor.attributes.home_logo }}'
+    - unique_id: home_team
+      name: '{{ states.sensor.nhl_sensor.attributes.get("home_name", "") }}'
+      state: '{{ states.sensor.nhl_sensor.attributes.get("home_score", "") }}'
+      picture: '{{ states.sensor.nhl_sensor.attributes.get("home_logo", "") }}'
 ```
   
 `ui-lovelace.yaml`
