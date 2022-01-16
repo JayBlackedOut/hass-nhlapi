@@ -24,6 +24,7 @@
 | Philadelphia Flyers   | 4       |
 | Pittsburgh Penguins   | 5       |
 | San Jose Sharks       | 28      |
+| Seattle Kraken        | 55      |
 | St. Louis Blues       | 19      |
 | Tampa Bay Lightning   | 14      |
 | Toronto Maple Leafs   | 10      |
