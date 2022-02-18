@@ -125,7 +125,7 @@ class NHLSensor(Entity):
             dttm = dt.strptime(dates['next_game_datetime'],
                                '%Y-%m-%dT%H:%M:%S%z')
             dttm_local = dt_util.as_local(dttm)
-            time = {'next_game_time': dttm_local.strftime('%-I:%M %p')}
+            time = {'next_game_time': dttm_local.strftime('%-I:%M %p'), 'next_game_datetime': dttm_local}
             # If next game is scheduled Today or Tomorrow,
             # return "Today" or "Tomorrow". Else, return
             # the actual date of the next game.
