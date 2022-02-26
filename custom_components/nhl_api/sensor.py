@@ -125,7 +125,10 @@ class NHLSensor(Entity):
             dttm = dt.strptime(dates['next_game_datetime'],
                                '%Y-%m-%dT%H:%M:%S%z')
             dttm_local = dt_util.as_local(dttm)
-            time = {'next_game_time': dttm_local.strftime('%-I:%M %p')}
+            time = {
+                'next_game_time': dttm_local.strftime('%-I:%M %p'),
+                'next_game_datetime': dttm_local
+                }
             # If next game is scheduled Today or Tomorrow,
             # return "Today" or "Tomorrow". Else, return
             # the actual date of the next game.
@@ -139,11 +142,12 @@ class NHLSensor(Entity):
                                  next_game_date)
         else:
             time = {
-                'next_game_time': ''
+                'next_game_time': '',
+                'next_game_datetime': ''
             }
             game_date = 'No Game Scheduled'
             next_game_date = ''
-        next = {'next_game_date': next_game_date}
+        next_game = {'next_game_date': next_game_date}
         # Merge all attributes to a single dict.
         all_attr = {
             **broadcasts,
@@ -151,7 +155,7 @@ class NHLSensor(Entity):
             **games,
             **plays,
             **time,
-            **next
+            **next_game
             }
         next_date_time = game_date + " " + time['next_game_time']
         return all_attr, next_date_time
