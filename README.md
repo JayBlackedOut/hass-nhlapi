@@ -64,6 +64,7 @@ The sensor will return the following state attributes whether or not a game is i
 | home_logo         | string  | The url to the home team's logo.                                                                                                                                                          |
 | next_game_date    | string  | The date of the next game.                                                                                                                                                                |
 | next_game_time    | string  | The time of the next game. This will be localized based on your Home Assistant configured timezone.                                                                                  |
+| next_game_datetime    | string  | The date and time of the next game. This will be localized based on your Home Assistant configured timezone.                                                                                  |
 
 The sensor will also return the following state attributes when a game is in progress:
 
