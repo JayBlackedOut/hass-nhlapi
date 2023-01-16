@@ -15,7 +15,7 @@ When a game is scheduled:
 `configuration.yaml`
 
 Change `sensor.nhl_sensor` to your sensor's `device_id`:
-```
+```yaml
 sensor:
   - platform: nhl_api
     team_id: #
@@ -34,7 +34,7 @@ sensor:
 `ui-lovelace.yaml`
 
 Change `sensor.nhl_sensor` to your sensor's `device_id`:
-```
+```yaml
 type: entities
 show_header_toggle: false
 entities:
@@ -48,7 +48,7 @@ entities:
 `configuration.yaml`
 
 Change `sensor.nhl_sensor` to your sensor's `device_id`:
-```
+```yaml
 template:
   - sensor:
     - unique_id: away_team
@@ -65,11 +65,37 @@ template:
 `ui-lovelace.yaml`
 
 Change `sensor.nhl_sensor` to your sensor's `device_id`:
-```
+```yaml
 type: entities
 show_header_toggle: false
 entities:
   - entity: sensor.nhl_sensor
   - entity: sensor.template_away_team
   - entity: sensor.template_home_team
+```
+
+If you have [Lovelace Card Mod](https://github.com/thomasloven/lovelace-card-mod) installed, you can center the team icons by changing `ui-lovelace.yaml` to this:
+```yaml
+type: entities
+show_header_toggle: false
+entities:
+  - entity: sensor.nhl_sensor
+  - entity: sensor.template_away_team
+    card_mod:
+      style:
+        hui-generic-entity-row$: |
+          state-badge {
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+  - entity: sensor.template_home_team
+    card_mod:
+      style:
+        hui-generic-entity-row$: |
+          state-badge {
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
 ```
