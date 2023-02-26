@@ -93,10 +93,10 @@ class NHLSensor(Entity):
         return self._state_attributes
 
     def timer(self, nowtime):
+        """Set timer to update at polling delta"""
         self.schedule_update_ha_state(True)
         polling_delta = self.set_polling()
         nexttime = nowtime + polling_delta
-        # Setup timer to run again at polling delta
         track_point_in_time(self.hass, self.timer, nexttime)
 
     def get_game_data(self):
@@ -193,6 +193,7 @@ class NHLSensor(Entity):
         return self._state
 
     def set_polling(self):
+        """Set dynamic polling interval"""
         game_state = self._state
         if game_state == "Pre-Game":
             polling_delta = PREGAME_SCAN_INTERVAL
