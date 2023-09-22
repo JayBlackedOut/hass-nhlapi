@@ -1,4 +1,7 @@
-<span style="color:red">*Important!*</span> There was a breaking change introduced in Home Assistant 2021.8.X that renders the state of the `away_team` and `home_team` template sensors unknown. Please see the [new instructions](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md) for formatting these sensors for use in the front end.
+# <span style="color:red">Breaking Change!</span>
+On September 21, 2023, the NHL retired their API endpoints and introduced a new API. Like the previous API, the new one is public but undocumented/not publicized. Efforts are underway to map the new endpoints. Once completed, this custom component will be reworked to consume the new API. Until then, it will sadly no longer function.
+
+Help the effort to document the new endpoint by joining the fine folks in the [NHL LED Scoreboard discord](https://discord.gg/CWa5CzK)!
 
 ## Information:
 Track the score of your favorite NHL team and create automations based on your team scoring!

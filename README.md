@@ -1,4 +1,10 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
+
+# <span style="color:red">Breaking Change!</span>
+On September 21, 2023, the NHL retired their API endpoints and introduced a new API. Like the previous API, the new one is public but undocumented/not publicized. Efforts are underway to map the new endpoints. Once completed, this custom component will be reworked to consume the new API. Until then, it will sadly no longer function.
+
+Help the effort to document the new endpoint by joining the fine folks in the [NHL LED Scoreboard discord](https://discord.gg/CWa5CzK)!
+
 # Home Assistant NHL API
 NHL Stats API Integration Into Home Assistant: Bring live score updates into Home Assistant and fire automations when your team scores!
 
