@@ -33,7 +33,7 @@ This method assumes you have HACS already installed.
 ```
 sensor:
   - platform: nhl_api
-    team_abbrev: [TEAM ABBREV FOUND IN STEP 2].
+    team_abbrev: [TEAM ABBREV FOUND IN STEP 2]
 ```
 5. Restart Home Assistant one final time.
 ## Configuration
@@ -45,6 +45,15 @@ sensor:
 | scan_interval | false    | integer  | Number of seconds until the sensor updates its state when the game is live. If not defined, defaults to 1 second.                                                             |
 
 <span style="color:red">*Warning!*</span> Setting your `scan_interval` to a low number leads to more writes to your disk. It is recommended to not set the scan interval to less than 5 if running Home Assistant on a Raspberry Pi. Also, each time the sensor updates (i.e. at each scan interval), anywhere from ~300B to ~25KB of data is consumed. Keep this in mind if you have a low internet data cap.
+
+### Example
+```
+sensor:
+  - platform: nhl_api
+    team_abbrev: mtl
+    name: Canadiens
+    scan_interval: 30
+``` 
 
 ## Exposed Information
 The sensor will expose the status of the tracked team's scheduled game for the day. The state can be:
