@@ -4,6 +4,7 @@ On September 21, 2023, the NHL started retiring their API endpoints and introduc
 **Breaking Changes introduced in this update:**
 * `team_id` has been replaced with `team_abbrev` as a YAML configuration key.
 * Users will now need to use the 3 letter abbreviation of the team they wish to track instead of the numeric team ID.
+* the sensor state will now report differently as described in the docs.
 * the `last_goal` attribute has been removed from the exposed information since the new API does not readily provide human readable goal descriptions.
 
 Help the effort to continue documenting the new endpoints by joining the fine folks in the [NHL LED Scoreboard discord](https://discord.gg/CWa5CzK)!
