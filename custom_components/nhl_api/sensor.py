@@ -163,7 +163,7 @@ class NHLSensor(Entity):
         """Set sensor state to game state and set polling interval."""
         all_attr = self.get_game_data()[0]
         next_date_time = self.get_game_data()[1]
-        if all_attr.get('game_state') == "Scheduled":
+        if all_attr.get('game_state') == "FUT":
             # Display next game date and time if none today.
             self._state = next_date_time
         else:
@@ -181,16 +181,16 @@ class NHLSensor(Entity):
         goal_tracked_team = self._state_attributes.get('goal_tracked_team', None)
         goal_event_handler(goal_team_abbrev, goal_event_id, goal_tracked_team, self.hass)
         # Clear the event list at game end.
-        if self._state == "Game Over":
+        if self._state == "FINAL":
             event_list(0, True)
         return self._state
 
     def set_polling(self):
         """Set dynamic polling interval"""
         game_state = self._state
-        if game_state == "Pre-Game":
+        if game_state == "PRE":
             polling_delta = PREGAME_SCAN_INTERVAL
-        elif game_state in [None, "In Progress", "In Progress - Critical"]:
+        elif game_state in [None, "LIVE", "CRIT"]:
             if self._scan_interval > LIVE_SCAN_INTERVAL:
                 polling_delta = self._scan_interval
             else:
