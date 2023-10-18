@@ -17,8 +17,6 @@ When a game is scheduled:
 Change `sensor.nhl_sensor` to your sensor's `device_id`:
 ```yaml
 sensor:
-  - platform: nhl_api
-    team_id: #
   - platform: template
     sensors:
       away_team:
