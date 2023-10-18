@@ -1,42 +1,46 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 
 # <span style="color:red">Breaking Change!</span>
-On September 21, 2023, the NHL retired their API endpoints and introduced a new API. Like the previous API, the new one is public but undocumented/not publicized. Efforts are underway to map the new endpoints. Once completed, this custom component will be reworked to consume the new API. Until then, it will sadly no longer function.
+On September 21, 2023, the NHL started retiring their API endpoints and introduced a new API. Like the previous API, the new one is public but undocumented/not publicized. This custom component has been reworked to consume the new API. 
 
-Help the effort to document the new endpoint by joining the fine folks in the [NHL LED Scoreboard discord](https://discord.gg/CWa5CzK)!
+Unfortunately, the `last_goal` attribute has been removed from the exposed information since the new API does not readily provide human readable goal descriptions.
+
+Help the effort to continue documenting the new endpoints by joining the fine folks in the [NHL LED Scoreboard discord](https://discord.gg/CWa5CzK)!
 
 # Home Assistant NHL API
 NHL Stats API Integration Into Home Assistant: Bring live score updates into Home Assistant and fire automations when your team scores!
 
-<span style="color:red">*New!*</span> The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live. Credit goes to @mastermc0. 
+The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live. Credit goes to @mastermc0.
+
+**Note:** The NHL updates their endpoints every 15 seconds.
 ## Installation: Manual
 1. Copy the `nhl_api` folder to the `custom_components` folder in your Home Assistant configuration directory.
-2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
+2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_abbrev of the team you would like to track.
 3. Restart Home Assistant to allow the required packages to be installed.
 4. Add the following minimum code in your `configuration.yaml` file. See Configuration for more advanced options:
 ```
 sensor:
   - platform: nhl_api
-    team_id: [TEAM ID FOUND IN STEP 2].
+    team_abbrev: [TEAM ABBREV FOUND IN STEP 2].
 ```
 5. Restart Home Assistant one final time.
 ## Installation: HACS
 This method assumes you have HACS already installed.
 1. In the HACS Store, search for `NHL` and find the `NHL API` integration and install it.
-2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_id of the team you would like to track.
+2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_abbrev of the team you would like to track.
 3. Restart Home Assistant to allow the required packages to be installed.
 4. Add the following code in your `configuration.yaml` file. See Configuration for more advanced options:
 ```
 sensor:
   - platform: nhl_api
-    team_id: [TEAM ID FOUND IN STEP 2].
+    team_abbrev: [TEAM ABBREV FOUND IN STEP 2].
 ```
 5. Restart Home Assistant one final time.
 ## Configuration
 | key      | required | type    | usage                                                                                                                               |
 |----------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------|
 | platform | true     | string  | `nhl_api`                                                                                                                           |
-| team_id  | true     | integer | Identifies the team to be tracked by the sensor. See [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md). |
+| team_abbrev  | true     | string  | Identifies the team to be tracked by the sensor. See [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md). |
 | name     | false    | string  | Friendly name of the sensor. If not defined, defaults to: 'NHL Sensor'.                                                             |
 | scan_interval | false    | integer  | Number of seconds until the sensor updates its state when the game is live. If not defined, defaults to 1 second.                                                             |
 
@@ -76,7 +80,6 @@ The sensor will also return the following state attributes when a game is in pro
 
 | attribute         | type    | usage                                                             |
 |-------------------|---------|-------------------------------------------------------------------|
-| last_goal         | string  | Description of the last goal scored in the format "GoalScorer (Season/PlayoffTotal) TypeOfShot, assists: AssistingPlayer1 (Season/PlayoffTotal), AssistingPlayer2 (Season/PlayoffTotal)".        |
 | goal_type         | string  | At what strength the goal was scored such as EVEN, PPG, SHG, etc. |
 | goal_team_id      | integer | The id of the team that scored the last goal.                     |
 | goal_event_id     | integer | The event id of the goal generated by the API.                    |
