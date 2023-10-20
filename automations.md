@@ -23,7 +23,7 @@ With the addition of `goal_tracked_team` to the event data in version 0.9.0, you
       message: 'The habs scored!'
 ```
 
-Alternatively, you can still match against the `team_id`:
+Alternatively, you can still match against the `team_abbrev`. MUST BE UPPERCASE:
 
 ```
 - alias: 'Montreal Goal Announcement'
@@ -31,7 +31,7 @@ Alternatively, you can still match against the `team_id`:
     platform: event
     event_type: nhl_goal
     event_data:
-      team_abbrev: mtl
+      team_abbrev: MTL
   action:
     service: tts.google_translate_say
     entity_id: media_player.living_room_speaker
