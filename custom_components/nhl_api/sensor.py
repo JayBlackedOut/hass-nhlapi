@@ -171,7 +171,7 @@ class NHLSensor(Entity):
         # Set sensor state attributes.
         self._state_attributes = all_attr
         # Set attribute for goal scored by tracked team.
-        if self._state_attributes.get('goal_team_abbrev', None) == self._team_abbrev:
+        if self._state_attributes.get('goal_team_abbrev') == self._team_abbrev.upper():
             self._state_attributes['goal_tracked_team'] = True
         else:
             self._state_attributes['goal_tracked_team'] = False
