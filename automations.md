@@ -31,7 +31,7 @@ Alternatively, you can still match against the `team_id`:
     platform: event
     event_type: nhl_goal
     event_data:
-      team_id: "8"
+      team_abbrev: mtl
   action:
     service: tts.google_translate_say
     entity_id: media_player.living_room_speaker
