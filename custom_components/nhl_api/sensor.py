@@ -18,7 +18,7 @@ from homeassistant.helpers.event import track_point_in_time
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.11.2'
+__version__ = '0.11.3'
 
 CONF_ABBREV = 'team_abbrev'
 CONF_NAME = 'name'
@@ -220,7 +220,8 @@ def goal_event_handler(goal_team_abbrev, goal_event_id, goal_tracked_team, hass)
     # If the event hasn't yet been fired for this goal, fire it.
     # Else, add the event to the list anyway, in case the list is new.
     if event_list() != [0] and event_id not in event_list():
-        hass.bus.fire('nhl_goal', {"team_abbrev": team_abbrev, "goal_tracked_team": goal_tracked_team})
+        hass.bus.fire('nhl_goal', {"team_abbrev": team_abbrev,
+                                   "goal_tracked_team": goal_tracked_team})
         event_list(event_id)
     else:
         event_list(event_id)
