@@ -1,6 +1,6 @@
 {
   "domain": "nhl_api",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "name": "NHL API",
   "documentation": "https://github.com/JayBlackedOut/hass-nhlapi",
   "dependencies": [],
