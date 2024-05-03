@@ -21,7 +21,7 @@ The sensor will only fetch data every 10 minutes when the game is not live and w
 ```
 sensor:
   - platform: nhl_api
-    team_abbrev: [TEAM ABBREV FOUND IN STEP 2].
+    team_abbrev: [TEAM ABBREV FOUND IN STEP 2]
 ```
 5. Restart Home Assistant one final time.
 ## Installation: HACS
