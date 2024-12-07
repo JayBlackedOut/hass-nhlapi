@@ -1,7 +1,6 @@
 | Team Name             | Team ID | Team Abbr |
 |-----------------------|---------|-----------|
 | Anaheim Ducks         | 24      | ANA       |
-| Arizona Coyotes       | 53      | ARI       |
 | Boston Bruins         | 6       | BOS       |
 | Buffalo Sabres        | 7       | BUF       |
 | Calgary Flames        | 20      | CGY       |
@@ -28,6 +27,7 @@
 | St. Louis Blues       | 19      | STL       |
 | Tampa Bay Lightning   | 14      | TBL       |
 | Toronto Maple Leafs   | 10      | TOR       |
+| Utah Hockey Club      | 59      | UTA       |
 | Vancouver Canucks     | 23      | VAN       |
 | Vegas Golden Knights  | 54      | VGK       |
 | Washington Capitals   | 15      | WSH       |
