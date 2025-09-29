@@ -105,6 +105,7 @@ The sensor will also return the following state attributes when a game is in pro
 | away_sog          | integer | The number of shots on goal by the away team.                     |
 | home_sog          | integer | The number of shots on goal by the home team.                     |
 | current_period    | string  | The current period.                                               |
+| current_period_type    | string  | The current period type. Returns one of `REG`, `OT` or `SO`.                                               |
 | is_intermission   | boolean | Returns `true` if it is currently between periods.                |
 | time_remaining    | string  | The time remaining in the current period.                         |
 | goal_tracked_team | boolean | Returns `true` if the last goal was scored by the team being tracked. Otherwise, returns `false`. Can be useful for goal alerts.                                                                    |
