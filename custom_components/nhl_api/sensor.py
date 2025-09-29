@@ -6,7 +6,7 @@ https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 
 import logging
 from datetime import timedelta, datetime as dt
-from pynhl import Schedule, Plays, Standings
+from pynhl import Schedule, Plays
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -114,11 +114,6 @@ class NHLSensor(Entity):
             linescore = Plays(game_id).linescore_info()
         else:
             linescore = {}
-        # Get standings info
-        if Standings(self._team_abbrev).team_record() is not None:
-            record = Standings(self._team_abbrev).team_record()
-        else:
-            record = {}        
         # Get broadcast info
         if Schedule(self._team_abbrev).broadcast_info() is not None:
             broadcasts = Schedule(self._team_abbrev).broadcast_info()
@@ -156,7 +151,6 @@ class NHLSensor(Entity):
         all_attr = {
             **broadcasts,
             **linescore,
-            **record,
             **games,
             **plays,
             **time,
