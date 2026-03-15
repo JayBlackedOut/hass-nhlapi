@@ -98,27 +98,17 @@ class NHLSensor(Entity):
 
     def get_game_data(self):
         """Get the latest data from the NHL API via pynhl."""
-        # Get game info
-        games = Schedule(self._team_abbrev).game_info()
-        # Get date and time info
-        dates = Schedule(self._team_abbrev).datetime_info()
+        # Get game info (single API call for schedule data)
+        schedule = Schedule(self._team_abbrev)
+        games = schedule.game_info()
+        dates = schedule.datetime_info()
+        broadcasts = schedule.broadcast_info() or {}
         # Get Game ID
-        game_id = Schedule(self._team_abbrev).game_info()["game_id"]
-        # Get scoring info
-        if Plays(game_id).scoring_info() is not None:
-            plays = Plays(game_id).scoring_info()
-        else:
-            plays = {}
-        # Get linescore info
-        if Plays(game_id).linescore_info() is not None:
-            linescore = Plays(game_id).linescore_info()
-        else:
-            linescore = {}
-        # Get broadcast info
-        if Schedule(self._team_abbrev).broadcast_info() is not None:
-            broadcasts = Schedule(self._team_abbrev).broadcast_info()
-        else:
-            broadcasts = {}
+        game_id = games["game_id"]
+        # Get scoring and linescore info (single API call for play data)
+        plays_obj = Plays(game_id)
+        plays = plays_obj.scoring_info() or {}
+        linescore = plays_obj.linescore_info() or {}
         # Localize the returned UTC time values.
         if dates['next_game_datetime'] != "None":
             dttm = dt.strptime(dates['next_game_datetime'],
@@ -161,8 +151,7 @@ class NHLSensor(Entity):
 
     def set_state(self):
         """Set sensor state to game state and set polling interval."""
-        all_attr = self.get_game_data()[0]
-        next_date_time = self.get_game_data()[1]
+        all_attr, next_date_time = self.get_game_data()
         if all_attr.get('game_state') == "FUT":
             # Display next game date and time if none today.
             self._state = next_date_time
