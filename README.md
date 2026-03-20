@@ -115,11 +115,14 @@ The sensor will also return the following state attributes when a game is in pro
 Display info in the front end: [frontend.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md)  
 Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md)
 
+## Frontend Card
+If you are looking for a ready-to-use dashboard card for this integration, check out the community-made [hass-nhlapi-card](https://github.com/PatrioteQc/hass-nhlapi-card) which provides live scores, team logos, and pre-game information!
+
 ## Objectives Checklist
 - [x] Consume undocumented NHL Stats API locally with the least amount of resources possible.
 - [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores, goal description, etc.)
 - [x] Create a "goal" event platform to use as a trigger for automations.
-- [ ] Display the information in the front-end in its own Lovelace card.
+- [x] Display the information in the front-end in its own Lovelace card.
 - [x] Add support for `HACS`.
 ## Resources
 [The Undocumented NHL Stats API](https://statsapi.web.nhl.com/api/v1/schedule)
