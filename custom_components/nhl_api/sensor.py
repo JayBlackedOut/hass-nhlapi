@@ -18,7 +18,7 @@ from homeassistant.helpers.event import track_point_in_time
 
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.13.6'
+__version__ = '1.0.0'
 
 CONF_ABBREV = 'team_abbrev'
 CONF_NAME = 'name'

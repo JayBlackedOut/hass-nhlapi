@@ -1,5 +1,9 @@
 # Frontend Example
-The goal is to eventually have a custom lovelace card to display the sensor's information. In the meantime, a makeshift scoreboard can be created using template sensors. Follow the steps below to get a result similar to this:
+
+## Recommended: Lovelace Card
+A custom lovelace card is available [here](https://github.com/JayBlackedOut/nhl-score-card/). This is the prefered method for displaying the sensor's information in the frontend. 
+
+## Alternative: Templated
 
 When no game is scheduled:
 

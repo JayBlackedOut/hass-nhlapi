@@ -37,8 +37,6 @@ sensor:
 | name     | false    | string  | Friendly name of the sensor. If not defined, defaults to: 'NHL Sensor'.                                                             |
 | scan_interval | false    | integer  | Number of seconds until the sensor updates its state when the game is live. If not defined, defaults to 1 second.                                                             |
 
-<span style="color:red">*Warning!*</span> Setting your `scan_interval` to a low number leads to more writes to your disk. It is recommended to not set the scan interval to less than 5 if running Home Assistant on a Raspberry Pi. Also, each time the sensor updates (i.e. at each scan interval), anywhere from ~300B to ~25KB of data is consumed. Keep this in mind if you have a low internet data cap.
-
 ### Example
 ```
 sensor:
@@ -47,6 +45,9 @@ sensor:
     name: Canadiens
     scan_interval: 30
 ``` 
+
+## Lovelace Card
+A custom lovelace card is available. Click [here](https://github.com/JayBlackedOut/nhl-score-card/) for installation information.
 
 ## Exposed Information
 The sensor will expose the status of the tracked team's scheduled game for the day. The state can be:
@@ -119,7 +120,7 @@ Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlap
 - [x] Consume undocumented NHL Stats API locally with the least amount of resources possible.
 - [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores, goal description, etc.)
 - [x] Create a "goal" event platform to use as a trigger for automations.
-- [ ] Display the information in the front-end in its own Lovelace card.
+- [x] Display the information in the front-end in its own Lovelace card.
 - [x] Add support for `HACS`.
 ## Resources
 [The Undocumented NHL Stats API](https://statsapi.web.nhl.com/api/v1/schedule)
