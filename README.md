@@ -5,20 +5,18 @@ NHL Stats API Integration Into Home Assistant: Bring live score updates into Hom
 
 The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live. Credit goes to @mastermc0.
 
-**Note:** The NHL updates their endpoints every 15 seconds.
-## Installation: Manual
-1. Copy the `nhl_api` folder to the `custom_components` folder in your Home Assistant configuration directory.
+**Note:** The NHL updates its endpoints every 15 seconds.
+
+## Installation: HACS and UI Configuration (Preferred)
+1. In the HACS Store, search for `NHL` and find the `NHL API` integration and install it.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_abbrev of the team you would like to track.
 3. Restart Home Assistant to allow the required packages to be installed.
-4. Add the following minimum code in your `configuration.yaml` file. See Configuration for more advanced options:
-```
-sensor:
-  - platform: nhl_api
-    team_abbrev: [TEAM ABBREV FOUND IN STEP 2]
-```
-5. Restart Home Assistant one final time.
-## Installation: HACS
-This method assumes you have HACS already installed.
+4. Go to Settings > Devices & Services > Add Integration and search for `NHL API`.
+5. Enter the abbreviation found in step 2. 
+6. Optional: Specify a longer live game polling interval in seconds.
+
+## Installation: HACS and YAML Configuration (Alternative)
+<font color="red">Warning: </font>This method will be deprecated in version 2.0.0.
 1. In the HACS Store, search for `NHL` and find the `NHL API` integration and install it.
 2. From the [teams.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) file in this repository, find the team_abbrev of the team you would like to track.
 3. Restart Home Assistant to allow the required packages to be installed.
@@ -128,12 +126,6 @@ The sensor will return the following attributes for playoff games:
 Display info in the front end: [frontend.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/frontend.md)  
 Sample automations: [automations.md](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/automations.md)
 
-## Objectives Checklist
-- [x] Consume undocumented NHL Stats API locally with the least amount of resources possible.
-- [x] Pass information to Home Assistant as sensor data. (ex. Next game scheduled, live scores, goal description, etc.)
-- [x] Create a "goal" event platform to use as a trigger for automations.
-- [x] Display the information in the front-end in its own Lovelace card.
-- [x] Add support for `HACS`.
 ## Resources
 [The Undocumented NHL Stats API](https://statsapi.web.nhl.com/api/v1/schedule)
 
