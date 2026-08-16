@@ -1,9 +1,13 @@
 {
   "domain": "nhl_api",
-  "version": "1.1.0",
   "name": "NHL API",
+  "version": "1.2.0",
+  "config_flow": true,
   "documentation": "https://github.com/JayBlackedOut/hass-nhlapi",
+  "issue_tracker": "https://github.com/JayBlackedOut/hass-nhlapi/issues",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
   "dependencies": [],
   "codeowners": ["@jayblackedout"],
-  "requirements": ["pynhl==0.6.8"]
+  "requirements": ["pynhl==0.6.9"]
 }

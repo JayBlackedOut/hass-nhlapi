@@ -1,0 +1,27 @@
+{
+  "title": "NHL API",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up NHL Team",
+        "data": {
+          "team_abbrev": "Team abbreviation (e.g. mtl, tor, bos)",
+          "scan_interval": "Live update interval (seconds)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "This team is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "NHL Team options",
+        "data": {
+          "scan_interval": "Live update interval (seconds)"
+        }
+      }
+    }
+  }
+}
