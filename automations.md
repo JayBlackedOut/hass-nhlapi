@@ -10,19 +10,20 @@ On Home Assistant 2026.7 or newer, use the built-in
 3. Click **Event received**.
 4. Click Add target then select your team's **Goal** entity.
 5. Select the event type **goal**.
-6. Click **Add condition***.
-7. Under **By type**, select **Entity** under the Generic header. 
-8. Select **State**.
-9. Select your team's **Goal** entity as you did in step 4.
-10. Select the attribute **Goal tracked team** and for state, type `true`.
-11. Choose your action, such as announcing the goal or flashing a light.
+6. Click **Add condition** and select **State** under **Entity**.
+7. Select the same **Goal** entity and choose the `team_abbrev` attribute.
+8. Enter your team's uppercase abbreviation, such as `MTL`, as the state.
+9. Choose your action, such as announcing the goal or flashing a light.
+
+`team_abbrev` identifies the scoring team. Omit the condition if you want to
+react to opponent goals too.
 
 The Goal entity is available for teams configured through the integration UI.
 Its ID is typically `event.nhl_[team_abbrev]_goal`; check your installation for the actual ID.
 
 ## YAML example
 
-Replace the entity IDs with your own:
+Replace the entity IDs and `MTL` abbreviation with your own:
 
 ```yaml
 - alias: Montreal goal announcement
@@ -36,8 +37,8 @@ Replace the entity IDs with your own:
   conditions:
     - condition: state
       entity_id: event.nhl_mtl_goal
-      attribute: goal_tracked_team
-      state: true
+      attribute: team_abbrev
+      state: "MTL"
   actions:
     - action: tts.speak
       target:
