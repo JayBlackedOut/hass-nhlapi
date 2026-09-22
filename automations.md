@@ -6,11 +6,16 @@ On Home Assistant 2026.7 or newer, use the built-in
 [Event received trigger](https://www.home-assistant.io/triggers/event.received/):
 
 1. Create an automation and add a trigger.
-2. Select your team's **Goal** entity, then **Event received**.
-3. Select the event type **goal**.
-4. Add a **State** condition for the same entity: attribute
-   **goal_tracked_team**, value **true**. This excludes opponent goals.
-5. Choose your action, such as announcing the goal or flashing a light.
+2. Under **By type**, select **Event** under the Generic header. 
+3. Click **Event received**.
+4. Click Add target then select your team's **Goal** entity.
+5. Select the event type **goal**.
+6. Click **Add condition***.
+7. Under **By type**, select **Entity** under the Generic header. 
+8. Select **State**.
+9. Select your team's **Goal** entity as you did in step 4.
+10. Select the attribute **Goal tracked team** and for state, type `true`.
+11. Choose your action, such as announcing the goal or flashing a light.
 
 The Goal entity is available for teams configured through the integration UI.
 Its ID is typically `event.nhl_[team_abbrev]_goal`; check your installation for the actual ID.
