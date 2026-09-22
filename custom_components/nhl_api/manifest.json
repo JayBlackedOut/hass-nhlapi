@@ -1,7 +1,7 @@
 {
   "domain": "nhl_api",
   "name": "NHL API",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "config_flow": true,
   "documentation": "https://github.com/JayBlackedOut/hass-nhlapi",
   "issue_tracker": "https://github.com/JayBlackedOut/hass-nhlapi/issues",
