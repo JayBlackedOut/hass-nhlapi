@@ -12,11 +12,8 @@ On Home Assistant 2026.7 or newer, use the built-in
    **goal_tracked_team**, value **true**. This excludes opponent goals.
 5. Choose your action, such as announcing the goal or flashing a light.
 
-Omit the condition to react to either team scoring. No timestamp templates or
-unknown/unavailable checks are needed with this trigger.
-
 The Goal entity is available for teams configured through the integration UI.
-Its ID is typically `event.nhl_mtl_goal`; check your installation for the actual ID.
+Its ID is typically `event.nhl_[team_abbrev]_goal`; check your installation for the actual ID.
 
 ## YAML example
 
